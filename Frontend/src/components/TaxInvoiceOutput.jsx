@@ -193,10 +193,47 @@ const TaxInvoiceOutput = ({ formData }) => {
     </div>
 
     {/* main content */}
-    <div className=" basis-3/5 border-b-2 border-green-400  bg-pink-200 flex flex-col">
+    <div className=" basis-3/5 border-b-2 border-green-400   flex flex-col">
     {/* main container 1 */}
 
-   <div className=" basis-3/4"></div>
+   <div className=" basis-3/4">
+   <table className="w-full">
+        <thead className="border-b-2 border-slate-600">
+            <tr>
+                <th>S.No</th>
+                <th>Item</th>
+                <th>HSN Code</th>
+                <th>Rate</th>
+                <th>Quantity</th>
+                <th>CGST</th>
+                <th>SGST</th>
+                <th>Total Amount</th>
+            </tr>
+        </thead>
+        <tbody >
+            <tr>
+                <td>1</td>
+                <td>Sample Item</td>
+                <td>1234</td>
+                <td>100.00</td>
+                <td>2</td>
+                <td>9%</td>
+                <td>9%</td>
+                <td>218.00</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Another Item</td>
+                <td>5678</td>
+                <td>200.00</td>
+                <td>1</td>
+                <td>9%</td>
+                <td>9%</td>
+                <td>236.00</td>
+            </tr>
+        </tbody>
+    </table>
+   </div>
     {/* main container 2 */}
 
    <div className="main-container2 flex h-full w-full basis-1/4">
