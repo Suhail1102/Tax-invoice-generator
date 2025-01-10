@@ -193,11 +193,46 @@ const TaxInvoiceOutput = ({ formData }) => {
     </div>
 
     {/* main content */}
-    <div className=" basis-3/5 border-b-2 border-green-400  bg-pink-200"></div>
+    <div className=" basis-3/5 border-b-2 border-green-400  bg-pink-200 flex flex-col">
+    {/* main container 1 */}
+
+   <div className=" basis-3/4"></div>
+    {/* main container 2 */}
+
+   <div className="main-container2 flex h-full w-full basis-1/4">
+   {/* bank details */}
+    <div className="bank-details basis-2/3 bg-red-300 px-3 ">
+    <h3 className="font-bold mt-2 text-lg">Bank Details:</h3>
+    <div className="details " style={{fontSize:"1.1rem"}} >
+       <div className="flex  gap-[4.2rem]">
+        <span>Bank:</span> 
+        <span> Indusind Bank</span>
+       </div>
+       <div className="flex  gap-10">
+        <span>Account:</span> 
+        <span> 78678679869409</span>
+       </div>
+       <div className="flex  gap-[4.5rem]">
+        <span>IFSC:</span> 
+        <span> basdfkjh3468</span>
+       </div>
+       <div className="flex  gap-[3.3rem]">
+        <span>Branch:</span> 
+        <span> London Ki</span>
+       </div>
+       
+    </div>
+    </div>
+    <div className="total basis-2/6 bg-gray-400"></div>
+
+   </div>
+    
+    
+    </div>
 
 
 
-
+   
 
 
 
