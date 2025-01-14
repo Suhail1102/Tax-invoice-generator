@@ -76,13 +76,14 @@ const TaxInvoiceForm = ({onSubmit}) => {
   };
 
   return (
-    <div>
-      <h1>Tax Invoice Generator</h1>
-      <form onSubmit={handleSubmit}>
+    <div className=" w-[85rem] mx-auto bg-slate-400">
+      <h1 className=" text-3xl font-bold tracking-tighter text-center my-4">Tax Invoice Form</h1>
+      <form onSubmit={handleSubmit} className="bg-blue-100 p-3 w-full rounded-md  ">
         {/* Company Details */}
-        <fieldset>
-          <legend>Company Details</legend>
-          <input
+        <fieldset className="border-[2px] border-zinc-500 shadow-lg p-2 rounded-md w-96 mx-auto ">
+        <legend className="text-2xl tracking-tight font-semibold">Company Details:</legend>
+         
+          <input className=" px-2 py-3 rounded-md text-gray-800 text-lg w-full block my-2 border outline-none focus:shadow-md appearance-none shadow"
             type="text"
             placeholder="Company Name"
             value={formData.companyDetails.name}
@@ -90,7 +91,7 @@ const TaxInvoiceForm = ({onSubmit}) => {
               handleInputChange("companyDetails", "name", e.target.value)
             }
           />
-          <input
+          <input className=" px-2 py-3 rounded-md text-gray-800 text-lg w-full block my-2 border outline-none focus:shadow-md appearance-none shadow"
             type="text"
             placeholder="GSTIN"
             value={formData.companyDetails.gstin}
@@ -98,15 +99,15 @@ const TaxInvoiceForm = ({onSubmit}) => {
               handleInputChange("companyDetails", "gstin", e.target.value)
             }
           />
-          <textarea
+          <textarea className="px-2 py-3 rounded-md text-gray-800 text-lg w-full block my-2 border outline-none focus:shadow-md appearance-none shadow resize-none "
             placeholder="Address"
             value={formData.companyDetails.address}
             onChange={(e) =>
               handleInputChange("companyDetails", "address", e.target.value)
             }
           ></textarea>
-          <input
-            type="text"
+          <input className=" px-2 py-3 rounded-md text-gray-800 text-lg w-full block my-2 border outline-none focus:shadow-md appearance-none shadow"
+            type="phone"
             placeholder="Contact"
             value={formData.companyDetails.contact}
             onChange={(e) =>
@@ -116,9 +117,10 @@ const TaxInvoiceForm = ({onSubmit}) => {
         </fieldset>
 
         {/* Customer Details */}
-        <fieldset>
-          <legend>Customer Details</legend>
-          <input
+        
+        <fieldset className="border-[2px] border-zinc-500 shadow-lg p-2 rounded-md w-96 mx-auto">
+        <legend className="text-2xl tracking-tight font-semibold">Customer Details</legend>
+          <input className="px-2 py-3 rounded-md text-gray-800 text-lg w-full block my-2 border outline-none focus:shadow-md appearance-none shadow"
             type="text"
             placeholder="Customer Name"
             value={formData.customerDetails.name}
@@ -126,14 +128,14 @@ const TaxInvoiceForm = ({onSubmit}) => {
               handleInputChange("customerDetails", "name", e.target.value)
             }
           />
-          <textarea
+          <textarea className="px-2 py-3 rounded-md text-gray-800 text-lg w-full block my-2 border outline-none focus:shadow-md appearance-none shadow resize-none"
             placeholder="Billing Address"
             value={formData.customerDetails.address}
             onChange={(e) =>
               handleInputChange("customerDetails", "address", e.target.value)
             }
           ></textarea>
-          <input
+          <input className="px-2 py-3 rounded-md text-gray-800 text-lg w-full block my-2 border outline-none focus:shadow-md appearance-none shadow"
             type="text"
             placeholder="Contact"
             value={formData.customerDetails.contact}
@@ -144,9 +146,10 @@ const TaxInvoiceForm = ({onSubmit}) => {
         </fieldset>
 
         {/* Invoice Details */}
-        <fieldset>
-          <legend>Invoice Details</legend>
-          <input
+        <fieldset className="border-[2px] border-zinc-500 shadow-lg p-2 rounded-md w-96 mx-auto">
+          <legend className="text-2xl tracking-tight font-semibold">Invoice Details</legend>
+          <input className="px-2 py-3 rounded-md text-gray-800 text-base w-full block my-2 border outline-none focus:shadow-md appearance-none shadow"
+
             type="text"
             placeholder="Invoice Number"
             value={formData.invoiceDetails.number}
@@ -154,7 +157,7 @@ const TaxInvoiceForm = ({onSubmit}) => {
               handleInputChange("invoiceDetails", "number", e.target.value)
             }
           />
-          <input
+          <input className="px-2 py-3 rounded-md text-gray-800 text-base w-full block my-2 border outline-none focus:shadow-md appearance-none shadow"
             type="date"
             placeholder="Invoice Date"
             value={formData.invoiceDetails.date}
@@ -162,7 +165,7 @@ const TaxInvoiceForm = ({onSubmit}) => {
               handleInputChange("invoiceDetails", "date", e.target.value)
             }
           />
-          <input
+          <input className="px-2 py-3 rounded-md text-gray-800 text-base w-full block my-2 border outline-none focus:shadow-md appearance-none shadow"
             type="date"
             placeholder="Due Date"
             value={formData.invoiceDetails.dueDate}
@@ -170,7 +173,7 @@ const TaxInvoiceForm = ({onSubmit}) => {
               handleInputChange("invoiceDetails", "dueDate", e.target.value)
             }
           />
-          <input
+          <input className="px-2 py-3 rounded-md text-gray-800 text-base w-full block my-2 border outline-none focus:shadow-md appearance-none shadow"
             type="text"
             placeholder="Place of Supply"
             value={formData.invoiceDetails.placeOfSupply}
@@ -181,11 +184,11 @@ const TaxInvoiceForm = ({onSubmit}) => {
         </fieldset>
 
         {/* Items */}
-        <fieldset>
-          <legend>Items</legend>
+        <fieldset className="border-[2px] border-zinc-500 shadow-lg p-2 rounded-md w-96 mx-auto">
+          <legend className="text-2xl tracking-tight font-semibold">Items</legend>
           {formData.items.map((item, index) => (
             <div key={index} className="itemRow">
-              <input
+              <input className="px-2 py-3 rounded-md text-gray-800 text-base w-3/4  my-2 border outline-none focus:shadow-md appearance-none shadow"
                 type="text"
                 placeholder="Item Name"
                 value={item.name}
@@ -193,7 +196,7 @@ const TaxInvoiceForm = ({onSubmit}) => {
                   handleInputChange("items", "name", e.target.value, index)
                 }
               />
-              <input
+              <input className="px-2 py-3 rounded-md text-gray-800 text-base ml-3 w-1/5 my-2 border outline-none focus:shadow-md appearance-none shadow"
                 type="text"
                 placeholder="HSN/SAC"
                 value={item.hsn}
@@ -201,7 +204,7 @@ const TaxInvoiceForm = ({onSubmit}) => {
                   handleInputChange("items", "hsn", e.target.value, index)
                 }
               />
-              <input
+              <input className="px-2 py-3 rounded-md text-gray-800 text-base w-1/5 mr-1  my-2 border outline-none focus:shadow-md appearance-none shadow"
                 type="number"
                 placeholder="Tax (%)"
                 value={item.tax}
@@ -209,7 +212,7 @@ const TaxInvoiceForm = ({onSubmit}) => {
                   handleInputChange("items", "tax", e.target.value, index)
                 }
               />
-              <input
+              <input className="px-2 py-3 rounded-md text-gray-800 text-base w-1/5 mx-4 my-2 border outline-none focus:shadow-md appearance-none shadow"
                 type="number"
                 placeholder="Qty"
                 value={item.qty}
@@ -217,7 +220,7 @@ const TaxInvoiceForm = ({onSubmit}) => {
                   handleInputChange("items", "qty", e.target.value, index)
                 }
               />
-              <input
+              <input className="px-2 py-3 rounded-md text-gray-800 text-base w-1/4 mx-4 my-2 border outline-none focus:shadow-md appearance-none shadow"
                 type="number"
                 placeholder="Rate"
                 value={item.rate}
@@ -225,7 +228,7 @@ const TaxInvoiceForm = ({onSubmit}) => {
                   handleInputChange("items", "rate", e.target.value, index)
                 }
               />
-              <input
+              <input className="px-2 py-3 rounded-md text-gray-800 text-base w-1/5 ml-4   my-2 border outline-none focus:shadow-md appearance-none shadow"
                 type="text"
                 placeholder="Unit"
                 value={item.unit}
@@ -233,21 +236,21 @@ const TaxInvoiceForm = ({onSubmit}) => {
                   handleInputChange("items", "unit", e.target.value, index)
                 }
               />
-              <button type="button" onClick={() => removeItem(index)}>
+              <button type="button " className="bg-red-500 px-2 py-1 mt-4 rounded-md  block text-lg mb-3" onClick={() => removeItem(index)}>
                 Remove
               </button>
             </div>
           ))}
-          <button type="button" onClick={addItem}>
+          <button type="button"  className="bg-green-500 px-2 py-1 rounded-md text-lg" onClick={addItem}>
             Add Item
           </button>
         </fieldset>
 
         {/* Bank Details */}
-        <fieldset>
-          <legend>Bank Details</legend>
-          <input
-            type="text"
+        <fieldset className="border-[2px] border-zinc-500 shadow-lg p-2 rounded-md w-96 mx-auto" > 
+          <legend className="text-2xl tracking-tight font-semibold">Bank Details</legend>
+          <input className=" px-2 py-3 rounded-md text-gray-800 text-lg w-full block my-2 border outline-none focus:shadow-md appearance-none shadow"
+            type="text" 
             placeholder="Bank Name"
             value={formData.bankDetails.name}
             onChange={(e) =>
@@ -255,6 +258,7 @@ const TaxInvoiceForm = ({onSubmit}) => {
             }
           />
           <input
+          className=" px-2 py-3 rounded-md text-gray-800 text-lg w-full block my-2 border outline-none focus:shadow-md appearance-none shadow"
             type="text"
             placeholder="Account Number"
             value={formData.bankDetails.accountNumber}
@@ -262,7 +266,7 @@ const TaxInvoiceForm = ({onSubmit}) => {
               handleInputChange("bankDetails", "accountNumber", e.target.value)
             }
           />
-          <input
+          <input className=" px-2 py-3 rounded-md text-gray-800 text-lg w-full block my-2 border outline-none focus:shadow-md appearance-none shadow"
             type="text"
             placeholder="IFSC"
             value={formData.bankDetails.ifsc}
@@ -270,7 +274,7 @@ const TaxInvoiceForm = ({onSubmit}) => {
               handleInputChange("bankDetails", "ifsc", e.target.value)
             }
           />
-          <input
+          <input className=" px-2 py-3 rounded-md text-gray-800 text-lg w-full block my-2 border outline-none focus:shadow-md appearance-none shadow"
             type="text"
             placeholder="Branch"
             value={formData.bankDetails.branch}
@@ -281,7 +285,7 @@ const TaxInvoiceForm = ({onSubmit}) => {
         </fieldset>
 
         {/* Submit Button */}
-        <button type="submit">Generate Invoice</button>
+        <button type="submit" className="text-3xl bg-blue-500 py-2 px-3 rounded-md mt-5 text-center  mx-auto text-white hover:bg-blue-600 flex justify-center ">Generate Invoice</button>
       </form>
     </div>
   );

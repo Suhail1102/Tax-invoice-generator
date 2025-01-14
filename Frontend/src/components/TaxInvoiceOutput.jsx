@@ -1,27 +1,28 @@
 import React from "react";
 import logo from '../assets/logo.png'
 import logo2 from '../assets/logo2.png'
+import Table from "./Table";
 
 const TaxInvoiceOutput = ({ formData }) => {
-//   const calculateTax = (amount, taxRate) => {
-//     return (amount * taxRate) / 100;
-//   };
+  // const calculateTax = (amount, taxRate) => {
+  //   return (amount * taxRate) / 100;
+  // };
 
-//   const calculateTotal = () => {
-//     const subtotal = formData.items.reduce((sum, item) => {
-//       const itemTotal = item.qty * item.rate;
-//       return sum + itemTotal;
-//     }, 0);
+  // const calculateTotal = () => {
+  //   const subtotal = formData.items.reduce((sum, item) => {
+  //     const itemTotal = item.qty * item.rate;
+  //     return sum + itemTotal;
+  //   }, 0);
 
-//     const taxAmount = formData.items.reduce((sum, item) => {
-//       const itemTax = calculateTax(item.qty * item.rate, item.tax);
-//       return sum + itemTax;
-//     }, 0);
+  //   const taxAmount = formData.items.reduce((sum, item) => {
+  //     const itemTax = calculateTax(item.qty * item.rate, item.tax);
+  //     return sum + itemTax;
+  //   }, 0);
 
-//     return { subtotal, taxAmount, grandTotal: subtotal + taxAmount };
-//   };
+  //   return { subtotal, taxAmount, grandTotal: subtotal + taxAmount };
+  // };
 
-//   const totals = calculateTotal();
+  // const totals = calculateTotal();
 
   return (
     // <div style={{ fontFamily: "Arial, sans-serif", padding: "20px", border: "1px solid #ddd" }}>
@@ -136,21 +137,21 @@ const TaxInvoiceOutput = ({ formData }) => {
                   <img src={logo} className="logo w-full h-full object-contain" alt="logo" />
                 </div>
                 <div className="company-details " style={{fontSize:"0.9rem"}}>
-                  <span className="block font-bold text-lg">Company Name</span>
-                  <span className="block ">GSTIN:27AAACT2727Q1ZW </span>
-                  <span className="block">64, white field mlain rod, palmmedos dsfasd sdfdsf </span>
+                  <span className="block font-bold text-lg">{formData.companyDetails.name}</span>
+                  <span className="block ">{formData.companyDetails.gstin} </span>
+                  <span className="block">{formData.companyDetails.address} </span>
                   <span className="block"> Banglore ,Karnataka, 560066</span>
-                  <span> mobile:9977538551</span>
+                  <span> mobile:{formData.companyDetails.contact}</span>
                 </div>
                 </div>
                 <div className="header-down  basis-2/4" >
                 <div className="cutomer-details px-2 " style={{fontSize:"0.9rem"}}>
                   <span className="block font-bold ">Cutomer Detail </span>
-                  <span className="block font-bold ">DailyFy Hub </span>
-                  <span className="block">64, white field mlain rod, palmmedos dsfasd sdfdsf </span>
+                  <span className="block font-bold ">{formData.customerDetails.name} </span>
+                  <span className="block">{formData.customerDetails.address} </span>
                   <span className="block"> Banglore ,Karnataka, 560066</span>
                   <span className=" ">GSTIN:27AAACT2727Q1ZW</span> &nbsp;|&nbsp;
-                  <span> Mobile:+91-9977538551</span>
+                  <span> Mobile:{formData.customerDetails.contact}</span>
                 </div>
                 
                 </div>
@@ -162,12 +163,12 @@ const TaxInvoiceOutput = ({ formData }) => {
         <div className="flex flex-col h-full w-full ">
           {/* header up */}
         <div className="header-up border-b-2 border-slate-600 basis-2/4 grid grid-rows-2 grid-cols-2 font-bold " style={{fontSize:"0.9rem"}}>
-                  <div className="px-2"><span className="block">Invoice #</span><span>INV 11</span></div>
+                  <div className="px-2"><span className="block">Invoice #</span><span>{formData.invoiceDetails.number}</span></div>
                   <div className=" px-2  border-l-2 border-slate-600">
-                    <span className="block">Invoice Date-</span><span>15 JUN 2023</span>
+                    <span className="block">Invoice Date-</span><span>{formData.invoiceDetails.date}</span>
                   </div>
-                  <div className=" px-2  border-t-2 border-slate-600">Place Of Supply</div>
-                  <div className=" px-2 border-s-2 border-t-2 border-slate-600">Due date</div>
+                  <div className=" px-2  border-t-2 border-slate-600">Place Of Supply - {formData.invoiceDetails.placeOfSupply}</div>
+                  <div className=" px-2 border-s-2 border-t-2 border-slate-600">Due date -{formData.invoiceDetails.dueDate}</div>
                  
                 
                 </div>
@@ -176,11 +177,11 @@ const TaxInvoiceOutput = ({ formData }) => {
                 <div className="header-down  basis-2/4">
                  <div className="shipping-address px-2 mt-2 " style={{fontSize:"0.9rem"}}>
                   <span className="block font-bold ">Shipping Address </span>
-                  <span className="block font-bold ">DailyFy Hub </span>
-                  <span className="block">64, white field mlain rod, palmmedos dsfasd sdfdsf </span>
+                  <span className="block font-bold ">{formData.customerDetails.name} </span>
+                  <span className="block">{formData.customerDetails.address} </span>
                   <span className="block"> Banglore ,Karnataka, 560066</span>
                   <span className=" ">GSTIN:27AAACT2727Q1ZW</span> &nbsp;|&nbsp;
-                  <span> Mobile:+91-9977538551</span>
+                  <span> Mobile:+91-{formData.customerDetails.contact}</span>
                 </div>
                     
                 </div>
@@ -193,95 +194,70 @@ const TaxInvoiceOutput = ({ formData }) => {
     </div>
 
     {/* main content */}
-    <div className=" basis-3/5 border-b-2 border-green-400   flex flex-col">
+    <div className=" basis-3/5  border-b-2   flex flex-col">
     {/* main container 1 */}
 
-   <div className=" basis-3/4">
-   <table className="w-full">
-        <thead className="border-b-2 border-slate-600">
-            <tr>
-                <th>S.No</th>
-                <th>Item</th>
-                <th>HSN Code</th>
-                <th>Rate</th>
-                <th>Quantity</th>
-                <th>CGST</th>
-                <th>SGST</th>
-                <th>Total Amount</th>
-            </tr>
-        </thead>
-        <tbody >
-            <tr>
-                <td>1</td>
-                <td>Sample Item</td>
-                <td>1234</td>
-                <td>100.00</td>
-                <td>2</td>
-                <td>9%</td>
-                <td>9%</td>
-                <td>218.00</td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>Another Item</td>
-                <td>5678</td>
-                <td>200.00</td>
-                <td>1</td>
-                <td>9%</td>
-                <td>9%</td>
-                <td>236.00</td>
-            </tr>
-        </tbody>
-    </table>
+   <div className=" basis-4/5">
+   <Table/>
+   
    </div>
     {/* main container 2 */}
 
-   <div className="main-container2 flex h-full w-full basis-1/4">
+   <div className="main-container2 flex h-full w-full basis-1/5">
    {/* bank details */}
-    <div className="bank-details basis-2/3 bg-red-300 px-3 ">
+    <div className="bank-details basis-2/3  px-3 border-r-2 border-slate-600">
     <h3 className="font-bold mt-2 text-lg">Bank Details:</h3>
-    <div className="details " style={{fontSize:"1.1rem"}} >
+    <div className="details " style={{fontSize:"0.9rem"}} >
        <div className="flex  gap-[4.2rem]">
         <span>Bank:</span> 
-        <span> Indusind Bank</span>
+        <span> {formData.bankDetails.name}</span>
        </div>
        <div className="flex  gap-10">
         <span>Account:</span> 
-        <span> 78678679869409</span>
+        <span> {formData.bankDetails.accountNumber}</span>
        </div>
        <div className="flex  gap-[4.5rem]">
         <span>IFSC:</span> 
-        <span> basdfkjh3468</span>
+        <span>{formData.bankDetails.ifsc}</span>
        </div>
        <div className="flex  gap-[3.3rem]">
         <span>Branch:</span> 
-        <span> London Ki</span>
+        <span> {formData.bankDetails.branch}</span>
        </div>
        
     </div>
     </div>
-    <div className="total basis-2/6 bg-gray-400"></div>
+    <div className="total basis-2/6 grid grid-rows-5">
+    {/* right column */}
 
-   </div>
-    
+        <div className="flex justify-around">
+          <h3>Taxable Amount</h3>
+          <span>24324.43545</span>
+        </div>
+        <div className="flex justify-around">
+          <h3>Igst</h3>
+          <span>24324.43545</span>
+        </div>
+        <div className="flex justify-around">
+          <h3>CGST</h3>
+          <span>24324.43545</span>
+        </div>
+        <div className="flex justify-around">
+          <h3>SGST </h3>
+          <span>24324.43545</span>
+        </div>
+        <div>
+          <h2>GrandTotal</h2>
+        </div>
+       
     
     </div>
-
-
-
-   
-
-
-
-
-
-
-
-
-
-    {/* footer */}
+          
+   </div>
+    </div>
+    {/* footer basis-1/6 */}
     
-    <div className="footer flex border-t-2 border-slate-600 basis-1/6 bg-red-200 box-border text-sm tracking-tight ">
+    <div className="footer flex border-t-2 border-slate-600 basis-1/6 box-border text-sm  ">
     {/* footer left */}
      <div className="basis-4/6 border-r-2 border-slate-600 footer-left pl-2">
      <div>
@@ -292,7 +268,7 @@ const TaxInvoiceOutput = ({ formData }) => {
         <h3 className="font-bold ">Terms And Conditions</h3>
         <ul className="list-decimal pl-3 box-border leading-6">
             <li>Goods once sold cannot be taken back or exchanged</li>
-            <li>We are not manufacturer company will stand for warranty as per terms and Conditions</li>
+            {/* <li>We are not manufacturer company will stand for warranty as per terms and Conditions</li> */}
             <li>Interest at 24% will be charged for unclear bills beyond 15 days</li>
             <li>subject to local jurisdiction.</li>
         </ul>

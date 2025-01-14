@@ -20,3 +20,11 @@ th, td {
 th {
     background-color: #f2f2f2;
 }
+
+.items-col{
+    width: 20rem;
+}
+.hsn-col{
+    width: 2rem;
+}
+

@@ -14,12 +14,12 @@ function App() {
 
   return (
     <>
-    {/* {!formData ? (
+    {!formData ? (
         <TaxInvoiceForm onSubmit={handleFormSubmit} />
       ) : (
         <TaxInvoiceOutput formData={formData} />
-      )} */}
-      <TaxInvoiceOutput  />
+      )}
+      {/* <TaxInvoiceOutput  />   */}
     </>
   )
 }
