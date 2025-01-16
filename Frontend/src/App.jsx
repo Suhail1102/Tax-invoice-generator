@@ -4,6 +4,7 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import TaxInvoiceForm from './components/TaxForm'
 import TaxInvoiceOutput from "./components/TaxInvoiceOutput";
+// import Qrcode from './components/Qrcode'
 
 function App() {
   const [formData, setFormData] = useState(null);
@@ -20,6 +21,7 @@ function App() {
         <TaxInvoiceOutput formData={formData} />
       )}
       {/* <TaxInvoiceOutput  />   */}
+   {/* <Qrcode/> */}
     </>
   )
 }

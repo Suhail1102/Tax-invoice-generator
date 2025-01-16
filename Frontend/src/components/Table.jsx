@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Table() {
+function Table({formData}) {
   return (
     <>
     <table className="w-full">
@@ -75,6 +75,14 @@ function Table() {
             </tr>
             <tr>
                 <td>8</td>
+                <td>Another Item</td>
+                <td>5678</td>
+                <td>200.00</td>
+                <td>1</td>
+                <td>236.00</td>
+            </tr>
+            <tr>
+                <td>9</td>
                 <td>Another Item</td>
                 <td>5678</td>
                 <td>200.00</td>

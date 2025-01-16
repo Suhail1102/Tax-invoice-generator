@@ -2,27 +2,28 @@ import React from "react";
 import logo from '../assets/logo.png'
 import logo2 from '../assets/logo2.png'
 import Table from "./Table";
+import Qrcode from './Qrcode'
 
 const TaxInvoiceOutput = ({ formData }) => {
-  // const calculateTax = (amount, taxRate) => {
-  //   return (amount * taxRate) / 100;
-  // };
+  const calculateTax = (amount, taxRate) => {
+    return (amount * taxRate) / 100;
+  };
 
-  // const calculateTotal = () => {
-  //   const subtotal = formData.items.reduce((sum, item) => {
-  //     const itemTotal = item.qty * item.rate;
-  //     return sum + itemTotal;
-  //   }, 0);
+  const calculateTotal = () => {
+    const subtotal = formData.items.reduce((sum, item) => {
+      const itemTotal = item.qty * item.rate;
+      return sum + itemTotal;
+    }, 0);
 
-  //   const taxAmount = formData.items.reduce((sum, item) => {
-  //     const itemTax = calculateTax(item.qty * item.rate, item.tax);
-  //     return sum + itemTax;
-  //   }, 0);
+    const taxAmount = formData.items.reduce((sum, item) => {
+      const itemTax = calculateTax(item.qty * item.rate, item.tax);
+      return sum + itemTax;
+    }, 0);
 
-  //   return { subtotal, taxAmount, grandTotal: subtotal + taxAmount };
-  // };
+    return { subtotal, taxAmount, grandTotal: subtotal + taxAmount };
+  };
 
-  // const totals = calculateTotal();
+  const totals = calculateTotal();
 
   return (
     // <div style={{ fontFamily: "Arial, sans-serif", padding: "20px", border: "1px solid #ddd" }}>
@@ -110,15 +111,15 @@ const TaxInvoiceOutput = ({ formData }) => {
     // </div>
     <>
     {/* <h1 className="text-red-400 text-4xl text-center">TaxInvoiceOutput</h1> */}
-<div className="border-[2px] border-slate-600 w-[8.3in] h-[10.7in] mx-auto mt-5 flex flex-col box-border ">
-
+<div className="border-[2px] border-slate-600 w-[8.3in] h-[11.6in] mx-auto mt-5 flex flex-col box-border ">
+ {/* Tax Invoice heading */}
 <div className=" basis-2" > 
         <h1 className="text-2xl text-center border-b-[2px] border-slate-600 font-bold">Tax Invoice</h1>
      </div>
 
      {/* form header */}
     
-    {/* Tax Invoice heading */}
+   
     <div className="header basis-1/4 border-b-2  border-slate-600 box-border  ">
    
         {/* header main content */}
@@ -134,22 +135,22 @@ const TaxInvoiceOutput = ({ formData }) => {
              <div className="flex flex-col h-full w-full ">
                 <div className="header-up border-b-2 border-slate-600 basis-2/4 flex justify-between items-center gap-2 px-1 ">
                 <div className="company-logo  h-[7rem] basis-2/5 ">
-                  <img src={logo} className="logo w-full h-full object-contain" alt="logo" />
+                  <img src={formData.companyDetails.image} className="logo w-full h-full object-contain" alt="logo" />
                 </div>
                 <div className="company-details " style={{fontSize:"0.9rem"}}>
                   <span className="block font-bold text-lg">{formData.companyDetails.name}</span>
                   <span className="block ">{formData.companyDetails.gstin} </span>
                   <span className="block">{formData.companyDetails.address} </span>
-                  <span className="block"> Banglore ,Karnataka, 560066</span>
+                  
                   <span> mobile:{formData.companyDetails.contact}</span>
                 </div>
                 </div>
                 <div className="header-down  basis-2/4" >
-                <div className="cutomer-details px-2 " style={{fontSize:"0.9rem"}}>
+                <div className="cutomer-details px-2 mt-2 " style={{fontSize:"0.9rem"}}>
                   <span className="block font-bold ">Cutomer Detail </span>
                   <span className="block font-bold ">{formData.customerDetails.name} </span>
                   <span className="block">{formData.customerDetails.address} </span>
-                  <span className="block"> Banglore ,Karnataka, 560066</span>
+                  
                   <span className=" ">GSTIN:27AAACT2727Q1ZW</span> &nbsp;|&nbsp;
                   <span> Mobile:{formData.customerDetails.contact}</span>
                 </div>
@@ -179,7 +180,7 @@ const TaxInvoiceOutput = ({ formData }) => {
                   <span className="block font-bold ">Shipping Address </span>
                   <span className="block font-bold ">{formData.customerDetails.name} </span>
                   <span className="block">{formData.customerDetails.address} </span>
-                  <span className="block"> Banglore ,Karnataka, 560066</span>
+                 
                   <span className=" ">GSTIN:27AAACT2727Q1ZW</span> &nbsp;|&nbsp;
                   <span> Mobile:+91-{formData.customerDetails.contact}</span>
                 </div>
@@ -194,33 +195,74 @@ const TaxInvoiceOutput = ({ formData }) => {
     </div>
 
     {/* main content */}
-    <div className=" basis-3/5  border-b-2   flex flex-col">
+    <div className=" basis-3/5  border-b-2   flex flex-col ">
     {/* main container 1 */}
 
-   <div className=" basis-4/5">
-   <Table/>
-   
+   <div className=" basis-4/5 ">
+   <table className="w-full h-full">
+        <thead className="border-b-2 border-slate-600">
+            <tr>
+                <th>S.No</th>
+                <th>Item</th>
+                <th className="hsn-col">HSN</th>
+                <th>Rate</th>
+                <th style={{width:"4rem"}}>Qty</th>
+                
+                <th>Amount</th>
+            </tr>
+        </thead>
+        <tbody className=" h-96" >
+        {formData.items.map((item, index) => {
+            const itemTotal = item.qty * item.rate;
+            const itemTax = calculateTax(itemTotal, item.tax);
+            return (
+              <tr key={index} className='border-b-[3px] border-t-[3px]   border-slate-500'>
+                <td >{index + 1}</td>
+                <td >{item.name}</td>
+                <td style={{ border: "1px solid #ddd", padding: "8px" }}>{item.hsn}</td>
+                <td style={{ border: "1px solid #ddd", padding: "8px" }}>{item.qty}</td>
+                <td style={{ border: "1px solid #ddd", padding: "8px" }}>{item.rate}</td>
+                <td style={{ border: "1px solid #ddd", padding: "8px" }}>{item.tax}</td>
+                <td style={{ border: "1px solid #ddd", padding: "8px" }}>
+                  ₹{(itemTotal + itemTax).toFixed(2)}
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+        <tfoot className="">
+            <tr className='border-b-[3px] border-t-[3px] border-slate-500'>
+                <td className='border-none'></td>
+                <td className='text-end '>Total</td>
+                <td className='border-none'></td>
+                <td className='border-none'></td>
+                <td className=''>500</td>
+                <td className=''>2346768.98</td>
+            </tr>
+        </tfoot>
+    </table>
+    
    </div>
     {/* main container 2 */}
 
-   <div className="main-container2 flex h-full w-full basis-1/5">
+   <div className="main-container2 flex h-full w-full ">
    {/* bank details */}
     <div className="bank-details basis-2/3  px-3 border-r-2 border-slate-600">
-    <h3 className="font-bold mt-2 text-lg">Bank Details:</h3>
+    <h3 className="font-bold mt-2 text-xl">Bank Details:</h3>
     <div className="details " style={{fontSize:"0.9rem"}} >
-       <div className="flex  gap-[4.2rem]">
+       <div className="flex text-lg gap-[4.2rem]">
         <span>Bank:</span> 
-        <span> {formData.bankDetails.name}</span>
+        <span className="text-start"> {formData.bankDetails.name}</span>
        </div>
-       <div className="flex  gap-10">
+       <div className="flex text-lg gap-10">
         <span>Account:</span> 
         <span> {formData.bankDetails.accountNumber}</span>
        </div>
-       <div className="flex  gap-[4.5rem]">
+       <div className="flex text-lg gap-[4.5rem]">
         <span>IFSC:</span> 
         <span>{formData.bankDetails.ifsc}</span>
        </div>
-       <div className="flex  gap-[3.3rem]">
+       <div className="flex text-lg gap-[3.3rem]">
         <span>Branch:</span> 
         <span> {formData.bankDetails.branch}</span>
        </div>
@@ -257,7 +299,7 @@ const TaxInvoiceOutput = ({ formData }) => {
     </div>
     {/* footer basis-1/6 */}
     
-    <div className="footer flex border-t-2 border-slate-600 basis-1/6 box-border text-sm  ">
+    <div className="footer flex border-t-2 border-slate-600 basis-1/12 box-border text-sm  ">
     {/* footer left */}
      <div className="basis-4/6 border-r-2 border-slate-600 footer-left pl-2">
      <div>
@@ -278,8 +320,8 @@ const TaxInvoiceOutput = ({ formData }) => {
      </div>
      {/* footer right */}
      <div className="basis-2/6">
-    <h1 className="text-end font-bold text-lg">For Company Name</h1>
-
+    <h1 className="text-end font-bold text-lg mr-4">For Company Name</h1>
+        <Qrcode/>
      </div>
      </div>
 

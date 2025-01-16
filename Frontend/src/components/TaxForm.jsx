@@ -3,6 +3,7 @@ import React, { useState } from "react";
 const TaxInvoiceForm = ({onSubmit}) => {
   const [formData, setFormData] = useState({
     companyDetails: {
+      image:"",
       name: "",
       gstin: "",
       address: "",
@@ -74,15 +75,31 @@ const TaxInvoiceForm = ({onSubmit}) => {
     // Format the data and pass it to the output generator logic
     onSubmit(formData)
   };
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        handleInputChange("companyDetails", "image", event.target.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   return (
-    <div className=" w-[85rem] mx-auto bg-slate-400">
+    <div className=" w-[85rem] mx-auto ">
       <h1 className=" text-3xl font-bold tracking-tighter text-center my-4">Tax Invoice Form</h1>
-      <form onSubmit={handleSubmit} className="bg-blue-100 p-3 w-full rounded-md  ">
+      <form onSubmit={handleSubmit} className=" p-3 w-full rounded-md  ">
         {/* Company Details */}
-        <fieldset className="border-[2px] border-zinc-500 shadow-lg p-2 rounded-md w-96 mx-auto ">
+        <fieldset className="border-[2px] border-zinc-500 shadow-lg p-2 rounded-md w-3/4 mx-auto ">
         <legend className="text-2xl tracking-tight font-semibold">Company Details:</legend>
-         
+        {/* logo */}
+        <input  type="file"
+        accept="image/*"
+        className="w-full text-gray-500 font-medium text-sm bg-gray-100 file:cursor-pointer cursor-pointer file:border-0 file:py-2 file:px-4 file:mr-4 file:bg-gray-800 file:hover:bg-gray-700 file:text-white rounded"  onChange={handleImageUpload}
+        
+         />
+
           <input className=" px-2 py-3 rounded-md text-gray-800 text-lg w-full block my-2 border outline-none focus:shadow-md appearance-none shadow"
             type="text"
             placeholder="Company Name"
@@ -118,7 +135,7 @@ const TaxInvoiceForm = ({onSubmit}) => {
 
         {/* Customer Details */}
         
-        <fieldset className="border-[2px] border-zinc-500 shadow-lg p-2 rounded-md w-96 mx-auto">
+        <fieldset className="border-[2px] border-zinc-500 shadow-lg p-2 rounded-md w-3/4 mx-auto">
         <legend className="text-2xl tracking-tight font-semibold">Customer Details</legend>
           <input className="px-2 py-3 rounded-md text-gray-800 text-lg w-full block my-2 border outline-none focus:shadow-md appearance-none shadow"
             type="text"
@@ -146,7 +163,7 @@ const TaxInvoiceForm = ({onSubmit}) => {
         </fieldset>
 
         {/* Invoice Details */}
-        <fieldset className="border-[2px] border-zinc-500 shadow-lg p-2 rounded-md w-96 mx-auto">
+        <fieldset className="border-[2px] border-zinc-500 shadow-lg p-2 rounded-md w-3/4 mx-auto">
           <legend className="text-2xl tracking-tight font-semibold">Invoice Details</legend>
           <input className="px-2 py-3 rounded-md text-gray-800 text-base w-full block my-2 border outline-none focus:shadow-md appearance-none shadow"
 
@@ -184,7 +201,7 @@ const TaxInvoiceForm = ({onSubmit}) => {
         </fieldset>
 
         {/* Items */}
-        <fieldset className="border-[2px] border-zinc-500 shadow-lg p-2 rounded-md w-96 mx-auto">
+        <fieldset className="border-[2px] border-zinc-500 shadow-lg p-2 rounded-md w-3/4 mx-auto">
           <legend className="text-2xl tracking-tight font-semibold">Items</legend>
           {formData.items.map((item, index) => (
             <div key={index} className="itemRow">
@@ -247,7 +264,7 @@ const TaxInvoiceForm = ({onSubmit}) => {
         </fieldset>
 
         {/* Bank Details */}
-        <fieldset className="border-[2px] border-zinc-500 shadow-lg p-2 rounded-md w-96 mx-auto" > 
+        <fieldset className="border-[2px] border-zinc-500 shadow-lg p-2 rounded-md w-3/4 mx-auto" > 
           <legend className="text-2xl tracking-tight font-semibold">Bank Details</legend>
           <input className=" px-2 py-3 rounded-md text-gray-800 text-lg w-full block my-2 border outline-none focus:shadow-md appearance-none shadow"
             type="text" 
