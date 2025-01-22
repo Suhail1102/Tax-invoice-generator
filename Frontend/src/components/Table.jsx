@@ -3,7 +3,7 @@ import React from 'react'
 function Table({formData}) {
   return (
     <>
-    <table className="w-full">
+    <table className="w-full flex justify-between flex-col">
         <thead className="border-b-2 border-slate-600">
             <tr>
                 <th>S.No</th>

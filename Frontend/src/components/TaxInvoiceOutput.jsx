@@ -199,30 +199,29 @@ const TaxInvoiceOutput = ({ formData }) => {
     {/* main container 1 */}
 
    <div className=" basis-4/5 ">
-   <table className="w-full h-full">
-        <thead className="border-b-2 border-slate-600">
+   <table className=" h-full w-full ">
+        <thead className="border-b-2 border-slate-600 ">
             <tr>
-                <th>S.No</th>
+                <th style={{width:"1rem"}}>S.No</th>
                 <th>Item</th>
                 <th className="hsn-col">HSN</th>
-                <th>Rate</th>
+                <th style={{width:"6rem"}}>Rate</th>
                 <th style={{width:"4rem"}}>Qty</th>
-                
-                <th>Amount</th>
+                <th style={{width:"8rem"}}>Amount</th>
             </tr>
         </thead>
-        <tbody className=" h-96" >
+        <tbody className="h-96  align-top " >
         {formData.items.map((item, index) => {
             const itemTotal = item.qty * item.rate;
             const itemTax = calculateTax(itemTotal, item.tax);
             return (
-              <tr key={index} className='border-b-[3px] border-t-[3px]   border-slate-500'>
+              <tr key={index} className='border-b-[1px]  border-slate-500' style={{height:"2rem"}}>
                 <td >{index + 1}</td>
                 <td >{item.name}</td>
                 <td style={{ border: "1px solid #ddd", padding: "8px" }}>{item.hsn}</td>
-                <td style={{ border: "1px solid #ddd", padding: "8px" }}>{item.qty}</td>
                 <td style={{ border: "1px solid #ddd", padding: "8px" }}>{item.rate}</td>
-                <td style={{ border: "1px solid #ddd", padding: "8px" }}>{item.tax}</td>
+                <td style={{ border: "1px solid #ddd", padding: "8px" }}>{item.qty}</td>
+                {/* <td style={{ border: "1px solid #ddd", padding: "8px" }}>{item.tax}</td> */}
                 <td style={{ border: "1px solid #ddd", padding: "8px" }}>
                   ₹{(itemTotal + itemTax).toFixed(2)}
                 </td>
@@ -230,7 +229,7 @@ const TaxInvoiceOutput = ({ formData }) => {
             );
           })}
         </tbody>
-        <tfoot className="">
+        <tfoot className="h-9">
             <tr className='border-b-[3px] border-t-[3px] border-slate-500'>
                 <td className='border-none'></td>
                 <td className='text-end '>Total</td>
@@ -299,7 +298,7 @@ const TaxInvoiceOutput = ({ formData }) => {
     </div>
     {/* footer basis-1/6 */}
     
-    <div className="footer flex border-t-2 border-slate-600 basis-1/12 box-border text-sm  ">
+    <div className="footer flex border-t-2 border-slate-600 basis-1/12 box-border text-sm  " style={{height:"142px"}}>
     {/* footer left */}
      <div className="basis-4/6 border-r-2 border-slate-600 footer-left pl-2">
      <div>

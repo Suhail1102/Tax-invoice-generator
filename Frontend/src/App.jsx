@@ -5,6 +5,8 @@ import './App.css'
 import TaxInvoiceForm from './components/TaxForm'
 import TaxInvoiceOutput from "./components/TaxInvoiceOutput";
 // import Qrcode from './components/Qrcode'
+import Header from './components/Header'
+import Hero from './components/Hero'
 
 function App() {
   const [formData, setFormData] = useState(null);
@@ -15,6 +17,9 @@ function App() {
 
   return (
     <>
+    
+   <Header/>
+   <Hero/>
     {!formData ? (
         <TaxInvoiceForm onSubmit={handleFormSubmit} />
       ) : (
@@ -22,6 +27,7 @@ function App() {
       )}
       {/* <TaxInvoiceOutput  />   */}
    {/* <Qrcode/> */}
+  <br /><br /><br /><br /><br /><br />b
     </>
   )
 }
