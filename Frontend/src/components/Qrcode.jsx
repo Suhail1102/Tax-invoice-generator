@@ -10,7 +10,7 @@ function Qrcode() {
   return (
  <>
  
-    <div className='h-24 w-24'>
+    <div className='h-24 w-24 relative top-[-2rem] left-[5rem] '>
       {/* <input
         value={text}
         onChange={(e) => setText(e.target.value)}

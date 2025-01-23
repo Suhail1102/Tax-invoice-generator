@@ -111,7 +111,7 @@ const TaxInvoiceOutput = ({ formData }) => {
     // </div>
     <>
     {/* <h1 className="text-red-400 text-4xl text-center">TaxInvoiceOutput</h1> */}
-<div className="border-[2px] border-slate-600 w-[8.3in] h-[11.6in] mx-auto mt-5 flex flex-col box-border ">
+<div className="border-[2px] border-slate-600 md:w-[8.3in] h-[11.6in] mx-auto mt-5 flex flex-col box-border w-[85vw] overflow-hidden ">
  {/* Tax Invoice heading */}
 <div className=" basis-2" > 
         <h1 className="text-2xl text-center border-b-[2px] border-slate-600 font-bold">Tax Invoice</h1>
@@ -320,7 +320,7 @@ const TaxInvoiceOutput = ({ formData }) => {
      {/* footer right */}
      <div className="basis-2/6">
     <h1 className="text-end font-bold text-lg mr-4">For Company Name</h1>
-        <Qrcode/>
+      <Qrcode/>
      </div>
      </div>
 

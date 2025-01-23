@@ -1,45 +1,73 @@
 import React from 'react'
 import { useEffect, useState } from 'react'
-// import LightModeIcon from '@mui/icons-material/LightMode';
+import LightModeIcon from '@mui/icons-material/LightMode';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
+import { Tooltip } from '@mui/material';
+import Drawer from '@mui/material/Drawer';
 
-function Header() {
+
+function Header({toggleDarkMode}) {
+  const [lighticon, setlighticon]= useState(false);
  
-  const [scrolled, setScrolled] = useState(false);
+  // const [scrolled, setScrolled] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 10) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
-    };
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     if (window.scrollY > 10) {
+  //       setScrolled(true);
+  //     } else {
+  //       setScrolled(false);
+  //     }
+  //   };
 
-    // Add scroll event listener
-    window.addEventListener("scroll", handleScroll);
+  //   // Add scroll event listener
+  //   window.addEventListener("scroll", handleScroll);
 
-    // Cleanup the event listener on component unmount
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
+  //   // Cleanup the event listener on component unmount
+  //   return () => {
+  //     window.removeEventListener("scroll", handleScroll);
+  //   };
+  // }, []);
 
+  const [open, setOpen] = useState(false);
 
+  const toggleDrawer = (newOpen) => {
+    setOpen(newOpen);
+  };
+
+  const handleIconMode=()=>{
+    if(lighticon){
+      setlighticon(false)
+    }
+    else setlighticon(true)
+  }
   return (
     <>
-     <header className={`${
-        scrolled ? "bg-zinc-900 bg-opacity-80 text-white" : "bg-transparent"
-      } text-black sticky top-0 shadow-md transition-all`}>
-      <nav className="container mx-auto flex items-center justify-between py-4 px-6">
+     <header className={` dark:text-white text-black sticky top-0 shadow-md transition-all  dark:shadow-slate-800 backdrop-blur-sm sm:h-16 md:h-full`} >
+      <nav className="container mx-auto flex items-center justify-between py-4 md:px-6 px-2">
         {/* Branding */}
-        <a href="/" className="text-2xl font-bold hover:text-gray-200">
+        <a href="/" className="md:text-2xl font-bold hover:text-gray-200 text-lg">
           Tax Invoice Generator
         </a>
-
+         
         {/* Mobile Menu Button */}
+        <div className='md:hidden flex gap-3 mr-3'>
+        <div onClick={toggleDarkMode} className='cursor-pointer transition-all '>
+            <span onClick={handleIconMode} className='transition-all'>
+            {
+          lighticon? <Tooltip title="Enable Light Mode">
+          <LightModeIcon/>
+        </Tooltip>:<Tooltip title="Enable Dark Mode">
+          <DarkModeIcon />
+        </Tooltip>
+        }     
+        </span>    
+          </div>
+          
         <button
-          className="block md:hidden text-white focus:outline-none"
+          className="block md:hidden text-black dark:text-white focus:outline-none "
           id="menu-button"
+          onClick={()=>toggleDrawer(true)}
         >
           <svg
             className="h-6 w-6"
@@ -56,6 +84,7 @@ function Header() {
             />
           </svg>
         </button>
+        </div>
 
         {/* Navigation Links */}
         <ul
@@ -94,20 +123,47 @@ function Header() {
               Contact
             </a>
           </li>
-          <li>
-          {/* <LightModeIcon/> */}
+          <li onClick={toggleDarkMode} className='cursor-pointer transition-all'>
+            <span onClick={handleIconMode} className='transition-all'>
+            {
+          lighticon? <Tooltip title="Enable Light Mode">
+          <LightModeIcon/>
+        </Tooltip>:<Tooltip title="Enable Dark Mode">
+          <DarkModeIcon />
+        </Tooltip>
+        }     
+        </span>    
           </li>
           <li>
             <a
               href="/login"
-              className="bg-white text-blue-600 px-4 py-2 rounded-full hover:bg-gray-100 transition duration-200"
+              className=" dark:bg-zinc-700 dark:text-white  bg-gray-200 text-blue-600 px-4 py-2 rounded-full hover:bg-gray-100 transition duration-200"
             >
               Login
             </a>
           </li>
+          <Drawer open={open} onClose={() => toggleDrawer(false)} anchor='right'>
+        <div style={{ width: 235, padding: "16px" , height:"100%"}} className='dark:bg-zinc-950'>
+          <ul className="space-y-4 ">
+            <li className="text-black dark:text-white text-lg ">Home</li>
+            <li className="text-black dark:text-white text-lg ">Features</li>
+            <li className="text-black dark:text-white text-lg ">Pricing</li>
+            <li className="text-black dark:text-white text-lg">Contact</li>
+            <li>
+            <a
+              href="/login"
+              className=" dark:bg-zinc-700 dark:text-white  bg-gray-200 text-blue-600 px-4 py-2 rounded-full hover:bg-gray-100 transition duration-200"
+            >
+              Login
+            </a>
+          </li>
+          </ul>
+        </div>
+      </Drawer>
         </ul>
       </nav>
     </header>
+    
     </>
   )
 }
