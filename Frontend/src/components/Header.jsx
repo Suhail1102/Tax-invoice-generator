@@ -8,26 +8,6 @@ import Drawer from '@mui/material/Drawer';
 
 function Header({toggleDarkMode}) {
   const [lighticon, setlighticon]= useState(false);
- 
-  // const [scrolled, setScrolled] = useState(false);
-
-  // useEffect(() => {
-  //   const handleScroll = () => {
-  //     if (window.scrollY > 10) {
-  //       setScrolled(true);
-  //     } else {
-  //       setScrolled(false);
-  //     }
-  //   };
-
-  //   // Add scroll event listener
-  //   window.addEventListener("scroll", handleScroll);
-
-  //   // Cleanup the event listener on component unmount
-  //   return () => {
-  //     window.removeEventListener("scroll", handleScroll);
-  //   };
-  // }, []);
 
   const [open, setOpen] = useState(false);
 
@@ -93,10 +73,18 @@ function Header({toggleDarkMode}) {
         >
           <li>
             <a
-              href="/home"
+              href="/"
               className="hover:text-gray-300 transition duration-200"
             >
               Home
+            </a>
+          </li>
+          <li>
+            <a
+              href="/about"
+              className="hover:text-gray-300 transition duration-200"
+            >
+              About
             </a>
           </li>
           <li>

@@ -87,8 +87,8 @@ const TaxInvoiceForm = ({onSubmit}) => {
   };
 
   return (
-    <div className=" md:w-[85rem] mx-auto w-[95vw] bg-zinc-400 dark:bg-zinc-300 ">
-      <h1 className=" text-3xl font-bold tracking-tighter text-center my-4">Tax Invoice Form</h1>
+    <div className=" md:w-full mx-auto w-[95vw] bg-zinc-100 dark:bg-zinc-600 rounded-lg">
+      {/* <h1 className=" text-3xl font-bold tracking-tighter text-center my-4">Tax Invoice Form</h1> */}
       <form onSubmit={handleSubmit} className=" p-3 w-full rounded-md  ">
         {/* Company Details */}
         <fieldset className="border-[2px] border-zinc-500 shadow-lg p-2 rounded-md w-3/4 mx-auto ">
