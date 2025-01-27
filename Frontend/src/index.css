@@ -27,4 +27,9 @@ th {
 .hsn-col{
     width: 2rem;
 }
-
+ .bg-image{
+    background-image: url('./assets/bgimage.jpg');
+    background-position: center;
+    background-size: 100%;
+    background-repeat: no-repeat;
+ }
