@@ -1,14 +1,33 @@
 const express = require('express');
+const cors = require('cors');
 const app = express();
 
-app.get('/', (req,res)=>{
-    res.send("Hello  new wolrd");
-});
-app.post('/signup', (req,res)=>{
-   const {name, email, password}= req.body;
-   console.log(name, email, password);
+// Middleware to parse JSON
+app.use(express.json());
+
+// Allow requests from your frontend
+app.use(cors({ origin: 'http://localhost:5173' }));
+
+// Handle signup requests
+app.post('/api/signup', (req, res) => {
+  console.log('Request Body:', req.body);
+
+  const { fullName, email, password } = req.body;
+
+  // Debug: Check if data is received correctly
+  if (!fullName || !email || !password) {
+    return res.status(400).json({ message: 'All fields are required' });
+  }
+
+  console.log('Full Name:', fullName);
+  console.log('Email:', email);
+  console.log('Password:', password);
+
+  // Send a success response
+  res.json({ message: 'User registered successfully!' });
 });
 
-app.listen(4000 ,()=>{
-    console.log("server is running");
+// Start the server
+app.listen(5000, () => {
+  console.log('Server is running on http://localhost:5000');
 });

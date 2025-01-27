@@ -8,10 +8,6 @@ import About from './Pages/About'
 import LoginSignup from './Pages/LoginSignup';
 
 function App() {
-  
-
-
-
   return (
     <>
     <BrowserRouter>

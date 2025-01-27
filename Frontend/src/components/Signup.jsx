@@ -42,8 +42,9 @@ function Signup() {
   };
 
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
+
 
     if (errors.password) {
       alert("Please fix the password errors before submitting.");
@@ -64,6 +65,31 @@ function Signup() {
     console.log("Submitting:", dataToSend);
 
     // Add backend API call here
+
+    try {
+      
+      const response = await fetch('http://localhost:5000/api/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(dataToSend),
+      });
+      const result = await response.json();
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      else {
+        alert('User registered successfully!');
+        setFormData({
+          fullName: '',
+          email: '',
+          password: '',
+          confirmPassword: '',
+        });
+      }
+      
+    } catch (error) {
+      
+    }
    
   };
 
@@ -80,7 +106,7 @@ function Signup() {
                 Login
               </a>
             </p>
-            <form className="mt-6" onSubmit={handleSubmit} method="post" action="https://localhost:4000/signup">
+            <form className="mt-6" onSubmit={handleSubmit} >
               {/* Name Input */}
               <div className="mb-4">
                 <label className="block text-gray-700 text-sm font-semibold mb-2">
