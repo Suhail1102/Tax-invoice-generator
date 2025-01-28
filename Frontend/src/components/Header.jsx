@@ -4,6 +4,7 @@ import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import { Tooltip } from '@mui/material';
 import Drawer from '@mui/material/Drawer';
+import { NavLink } from 'react-router';
 
 
 function Header({toggleDarkMode}) {
@@ -26,9 +27,9 @@ function Header({toggleDarkMode}) {
      <header className={` dark:text-white text-black sticky top-0 shadow-md transition-all  dark:shadow-slate-800 backdrop-blur-sm sm:h-16 md:h-full`} >
       <nav className="container mx-auto flex items-center justify-between py-4 md:px-6 px-2">
         {/* Branding */}
-        <a href="/" className="md:text-2xl font-bold hover:text-gray-200 text-lg">
+        <NavLink to="/" className="md:text-2xl font-bold hover:text-gray-200 text-lg">
           Tax Invoice Generator
-        </a>
+        </NavLink>
          
         {/* Mobile Menu Button */}
         <div className='md:hidden flex gap-3 mr-3'>
@@ -72,12 +73,13 @@ function Header({toggleDarkMode}) {
           className="hidden md:flex space-x-6 items-center font-medium"
         >
           <li>
-            <a
-              href="/"
+            <NavLink
+              to="/"
               className="hover:text-gray-300 transition duration-200"
+              style={({ isActive }) => (isActive ? { textDecoration: 'underline',   textDecorationThickness: '2px' } : {})}
             >
               Home
-            </a>
+            </NavLink>
           </li>
           <li>
             <a

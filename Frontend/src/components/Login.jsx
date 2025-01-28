@@ -14,7 +14,7 @@ function Login() {
         <h2 className="text-2xl font-bold text-gray-800">Login</h2>
         <p className="mt-2 text-sm text-gray-600">
           Don’t have an account yet?{" "}
-          <a href="#" className="text-purple-600 hover:underline">
+          <a href="/signup" className="text-purple-600 hover:underline">
             Sign Up
           </a>
         </p>

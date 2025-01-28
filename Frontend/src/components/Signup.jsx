@@ -11,7 +11,10 @@ function Signup() {
   const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState({
     password: "",
+    confirmPassword :""
   });
+ 
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -21,26 +24,31 @@ function Signup() {
       const specialCharRegex = /[!@#$%^&*(),.?":{}|<>]/; // At least one special character
       const capitalLetterRegex = /[A-Z]/; // At least one capital letter
       const invalidCharRegex = /[_-]/; // Invalid characters
-
+      const lengthRegex = /^.{8,16}$/; // Length between 8 and 16 characters
+    
       let error = "";
-
-      if (!specialCharRegex.test(value)) {
+    
+      if (!lengthRegex.test(value)) {
+        error = "Password must be between 8 and 16 characters long.";
+      } else if (!specialCharRegex.test(value)) {
         error = "Password must contain at least one special character.";
       } else if (!capitalLetterRegex.test(value)) {
         error = "Password must contain at least one capital letter.";
       } else if (invalidCharRegex.test(value)) {
         error = "Password contains invalid characters (_ or -).";
       }
-
-      setErrors({ ...errors, password: error });
+    
+      setErrors({ ...errors, password: error});
     }
+    
+    
+    
 
     setFormData({
       ...formData,
       [name]: value,
     });
   };
-
 
   const handleSubmit = async(e) => {
     e.preventDefault();
@@ -52,7 +60,7 @@ function Signup() {
     }
 
     if (formData.password !== formData.confirmPassword) {
-      alert("Passwords do not match!");
+        setconfirmErr(true)
       return;
     }
 
@@ -64,7 +72,7 @@ function Signup() {
 
     console.log("Submitting:", dataToSend);
 
-    // Add backend API call here
+    // Calling Api here
 
     try {
       
@@ -78,6 +86,7 @@ function Signup() {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       else {
+        console.log(result)
         alert('User registered successfully!');
         setFormData({
           fullName: '',
@@ -88,21 +97,21 @@ function Signup() {
       }
       
     } catch (error) {
-      
+      console.log(error)
     }
    
   };
 
   return (
     <>
-      <div className="flex min-h-screen items-center justify-center bg-gray-100">
+      <div className="flex min-h-screen items-center justify-center bg-image">
         <div className="flex flex-col lg:flex-row w-full max-w-4xl bg-white shadow-lg rounded-2xl overflow-hidden">
           {/* Right Form Section */}
           <div className="w-full lg:w-1/2 p-8">
             <h2 className="text-2xl font-bold text-gray-800">Sign Up</h2>
             <p className="mt-2 text-sm text-gray-600">
               Already have an account?{" "}
-              <a href="#" className="text-blue-600 hover:underline">
+              <a href="/login" className="text-blue-600 hover:underline">
                 Login
               </a>
             </p>
@@ -174,10 +183,14 @@ function Signup() {
                   placeholder="Re-enter your password"
                   value={formData.confirmPassword}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 bg-gray-100 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+                  className={`w-full px-4 py-2 bg-gray-100 border rounded-md focus:outline-none focus:ring-2 ${
+                    errors.confirmPassword
+                      ? "border-red-500 focus:ring-red-400"
+                      : "focus:ring-green-400"
+                  }`}
                   required
                 />
-          
+               
               </div>
 
               {/* Submit Button */}
