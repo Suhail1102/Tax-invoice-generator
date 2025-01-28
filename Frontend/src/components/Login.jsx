@@ -2,6 +2,7 @@ import React from 'react'
 import { useState } from 'react';
 import heroimg from '../assets/heroimg.png'
 import bgimage from '../assets/bgimage.jpg'
+import { NavLink } from 'react-router';
 
 function Login() {
  
@@ -11,6 +12,9 @@ function Login() {
     <div className="flex flex-col lg:flex-row w-full max-w-4xl bg-transparent shadow-lg rounded-2xl overflow-hidden">
       {/* Left Form Section */}
       <div className="w-full lg:w-1/2 p-8 bg-white">
+      <NavLink to="/" > <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1} stroke="currentColor" className="size-10 cursor-pointer">
+  <path strokeLinecap="round" strokeLinejoin="round" d="m11.25 9-3 3m0 0 3 3m-3-3h7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+</svg></NavLink>
         <h2 className="text-2xl font-bold text-gray-800">Login</h2>
         <p className="mt-2 text-sm text-gray-600">
           Don’t have an account yet?{" "}

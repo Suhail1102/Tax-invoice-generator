@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import heroimg from "../assets/heroimg.png";
+import { NavLink , useNavigate} from 'react-router';
 
 function Signup() {
   const [formData, setFormData] = useState({
@@ -13,8 +14,9 @@ function Signup() {
     password: "",
     confirmPassword :""
   });
+  const [focused, setFocused] = useState(false);
  
-
+const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -41,8 +43,11 @@ function Signup() {
       setErrors({ ...errors, password: error});
     }
     
-    
-    
+    if (name === "confirmPassword") {
+      
+      const error = formData.password!== value? "Passwords do not match." : "";
+      setErrors({...errors, confirmPassword: error });
+    }
 
     setFormData({
       ...formData,
@@ -60,7 +65,8 @@ function Signup() {
     }
 
     if (formData.password !== formData.confirmPassword) {
-        setconfirmErr(true)
+        alert("Passwords do not match!");
+  
       return;
     }
 
@@ -87,6 +93,7 @@ function Signup() {
       }
       else {
         console.log(result)
+        navigate("/");
         alert('User registered successfully!');
         setFormData({
           fullName: '',
@@ -104,10 +111,13 @@ function Signup() {
 
   return (
     <>
-      <div className="flex min-h-screen items-center justify-center bg-image">
+      <div className="flex min-h-screen items-center justify-center bg-image ">
         <div className="flex flex-col lg:flex-row w-full max-w-4xl bg-white shadow-lg rounded-2xl overflow-hidden">
           {/* Right Form Section */}
-          <div className="w-full lg:w-1/2 p-8">
+          <div className="w-full lg:w-1/2 p-8 pt-5">
+          <NavLink to="/" > <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1} stroke="currentColor" className="size-10 cursor-pointer">
+  <path strokeLinecap="round" strokeLinejoin="round" d="m11.25 9-3 3m0 0 3 3m-3-3h7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+</svg></NavLink>
             <h2 className="text-2xl font-bold text-gray-800">Sign Up</h2>
             <p className="mt-2 text-sm text-gray-600">
               Already have an account?{" "}
@@ -156,7 +166,7 @@ function Signup() {
                 <input
                   type={showPassword ? "text" : "password"}
                   name="password"
-                  placeholder="Enter 6 characters or more"
+                  placeholder="Enter 8 characters or more"
                   value={formData.password}
                   onChange={handleChange}
                   className={`w-full px-4 py-2 bg-gray-100 border rounded-md focus:outline-none focus:ring-2 ${
@@ -175,7 +185,22 @@ function Signup() {
               {/* Confirm Password Input */}
               <div className="mb-4 relative">
                 <label className="block text-gray-700 text-sm font-semibold mb-2">
-                  Confirm Password
+                  Confirm Password {formData.confirmPassword && !errors.confirmPassword && (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        strokeWidth={1.5}
+        stroke="currentColor"
+        className="size-6 text-green-400 inline-block"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+        />
+      </svg>
+    )}
                 </label>
                 <input
                   type={showPassword ? "text" : "password"}
@@ -183,13 +208,24 @@ function Signup() {
                   placeholder="Re-enter your password"
                   value={formData.confirmPassword}
                   onChange={handleChange}
-                  className={`w-full px-4 py-2 bg-gray-100 border rounded-md focus:outline-none focus:ring-2 ${
-                    errors.confirmPassword
-                      ? "border-red-500 focus:ring-red-400"
-                      : "focus:ring-green-400"
-                  }`}
+                  onFocus={() => setFocused(true)} // Set focus state to true
+                  onBlur={() => setFocused(false)} // Set focus state to false
+                  className={`w-full px-4 py-2 bg-gray-100 border rounded-md focus:outline-none 
+                       ${
+            focused
+              ? "focus:ring-blue-400 border-blue-400" // Blue when focused
+              : errors.confirmPassword
+              ? "border-red-500 focus:ring-red-400" // Red when invalid
+              : formData.confirmPassword
+              ? "border-green-400 focus:ring-green-400" // Green when valid and blurred
+              : "border-gray-300" // Default when no focus and no input
+          }
+                  `}
                   required
-                />
+                /> 
+                {errors.confirmPassword && (
+                  <p className="text-red-500 text-sm mt-1">{errors.confirmPassword}</p>
+                )}
                
               </div>
 

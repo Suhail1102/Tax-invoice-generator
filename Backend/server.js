@@ -24,7 +24,7 @@ app.post('/api/signup', (req, res) => {
   console.log('Password:', password);
 
   // Send a success response
-  res.json({ message: 'User registered successfully!' });
+  res.status(200).json({ message: 'user registered successfully!' });
 });
 
 // Start the server
