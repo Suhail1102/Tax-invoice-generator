@@ -18,7 +18,7 @@ function Login() {
         <h2 className="text-2xl font-bold text-gray-800">Login</h2>
         <p className="mt-2 text-sm text-gray-600">
           Don’t have an account yet?{" "}
-          <a href="/signup" className="text-purple-600 hover:underline">
+          <a href="/signup" className="text-blue-600 hover:underline">
             Sign Up
           </a>
         </p>
@@ -30,7 +30,7 @@ function Login() {
             <input
               type="email"
               placeholder="you@example.com"
-              className="w-full px-4 py-2 bg-gray-100 border rounded-md focus:outline-none focus:ring-2 focus:ring-purple-400"
+              className="w-full px-4 py-2 bg-gray-100 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
             />
           </div>
           <div className="mb-4">
@@ -40,11 +40,11 @@ function Login() {
             <input
               type="password"
               placeholder="Enter 6 characters or more"
-              className="w-full px-4 py-2 bg-gray-100 border rounded-md focus:outline-none focus:ring-2 focus:ring-purple-400"
+              className="w-full px-4 py-2 bg-gray-100 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
             />
             <a
               href="#"
-              className="text-sm text-purple-600 hover:underline mt-2 block"
+              className="text-sm text-blue-600 hover:underline mt-2 block"
             >
               Forgot Password?
             </a>
@@ -57,7 +57,7 @@ function Login() {
           </div>
           <button
             type="submit"
-            className="w-full py-2 bg-purple-600 text-white font-semibold rounded-md hover:bg-purple-700 transition duration-300"
+            className="w-full py-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 transition duration-300"
           >
             LOGIN
           </button>

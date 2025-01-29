@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import heroimg from "../assets/heroimg.png";
 import { NavLink , useNavigate} from 'react-router';
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
+import { Button } from "@mui/material";
 
 function Signup() {
   const [formData, setFormData] = useState({
@@ -17,6 +20,10 @@ function Signup() {
   const [focused, setFocused] = useState(false);
  
 const navigate = useNavigate();
+const[open , setOpen]= useState(false)
+const[submitting , setIssubmitting]= useState(false)
+const [loading, setLoading] = useState(false)
+const [message, setmessage] = useState("")
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -76,7 +83,7 @@ const navigate = useNavigate();
       password: formData.password,
     };
 
-    console.log("Submitting:", dataToSend);
+    // console.log("Submitting:", dataToSend);
 
     // Calling Api here
 
@@ -92,35 +99,61 @@ const navigate = useNavigate();
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       else {
-        console.log(result)
-        navigate("/");
-        alert('User registered successfully!');
-        setFormData({
-          fullName: '',
-          email: '',
-          password: '',
-          confirmPassword: '',
-        });
+        setTimeout(() => {
+          setmessage(result.message)
+          setLoading(false)
+          setFormData({
+            fullName: '',
+            email: '',
+            password: '',
+            confirmPassword: '',
+          });
+         setTimeout(() => {
+           setmessage("")
+         }, 2000,);
+           
+        }, 2000);
+        
+        // setOpen(true)
+        // setIssubmitting(true)
+        setLoading(true)
       }
       
     } catch (error) {
       console.log(error)
+      alert(error)
     }
    
   };
 
   return (
     <>
-      <div className="flex min-h-screen items-center justify-center bg-image ">
-        <div className="flex flex-col lg:flex-row w-full max-w-4xl bg-white shadow-lg rounded-2xl overflow-hidden">
+      <div className="flex min-h-screen items-center justify-center bg-image flex-col ">
+        {/* display message */}
+        
+        <div className="flex flex-col lg:flex-row w-full max-w-4xl bg-white shadow-lg rounded-2xl overflow-hidden relative ">
           {/* Right Form Section */}
+          <div className="absolute md:top-5 md:left-80 left-20 ">{message &&<> <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        strokeWidth={1.5}
+        stroke="currentColor"
+        className="size-5 text-green-400 inline-block"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+        />
+      </svg> <span className=" text-green-300 font-semibold text-lg transition-all">{message}</span> </>}</div>
           <div className="w-full lg:w-1/2 p-8 pt-5">
           <NavLink to="/" > <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1} stroke="currentColor" className="size-10 cursor-pointer">
   <path strokeLinecap="round" strokeLinejoin="round" d="m11.25 9-3 3m0 0 3 3m-3-3h7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
 </svg></NavLink>
             <h2 className="text-2xl font-bold text-gray-800">Sign Up</h2>
             <p className="mt-2 text-sm text-gray-600">
-              Already have an account?{" "}
+              Already have an account?&nbsp;
               <a href="/login" className="text-blue-600 hover:underline">
                 Login
               </a>
@@ -230,12 +263,17 @@ const navigate = useNavigate();
               </div>
 
               {/* Submit Button */}
-              <button
-                type="submit"
-                className="w-full py-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 transition duration-300"
-              >
-                SIGN UP
-              </button>
+
+              <Button
+              type="submit"
+        fullWidth
+       
+        className="w-full py-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 transition duration-300"
+              loading={loading}
+       variant="contained"
+      >
+        Sign UP
+      </Button>
             </form>
 
             <p className="mt-6 text-center text-gray-600 text-sm">
@@ -267,7 +305,13 @@ const navigate = useNavigate();
           </div>
         </div>
       </div>
-     
+      <Backdrop
+        sx={(theme) => ({ color: '#fff', zIndex: theme.zIndex.drawer + 1 })}
+        open={open}
+        
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
     </>
   );
 }
