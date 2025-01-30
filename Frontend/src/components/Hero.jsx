@@ -16,7 +16,7 @@ function Hero() {
       </h1>
       <p className="mb-8 leading-relaxed">Say goodbye to manual invoicing. Our tool lets you create GST-compliant tax invoices in seconds—easy, efficient, and accurate.</p>
       <div className="flex justify-center">
-      <Link to="/login" > <button className="inline-flex text-white bg-purple-500 border-0 py-2 px-6 focus:outline-none hover:bg-purple-600 rounded text-lg">Create Invoice</button></Link> 
+      <Link to="/invoice/form" > <button className="inline-flex text-white bg-purple-500 border-0 py-2 px-6 focus:outline-none hover:bg-purple-600 rounded text-lg">Create Invoice</button></Link> 
       </div>
     </div>
   </div>

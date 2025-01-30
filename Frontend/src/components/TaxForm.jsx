@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import TaxInvoiceOutput from "./TaxInvoiceOutput";
 
 const TaxInvoiceForm = ({onSubmit}) => {
   const [formData, setFormData] = useState({
@@ -87,224 +88,194 @@ const TaxInvoiceForm = ({onSubmit}) => {
   };
 
   return (
-    <div className=" md:w-full mx-auto w-[95vw] bg-zinc-100 dark:bg-zinc-600 rounded-lg">
-      {/* <h1 className=" text-3xl font-bold tracking-tighter text-center my-4">Tax Invoice Form</h1> */}
+    <>
+    <div className=" min-h-screen bg-white py-3 px-4 sm:px-6 lg:px-8 container mx-auto shadow-md mt-3 border-[1px] max-w-3xl rounded-sm">
+      <h1 className=" text-2xl font-bold tracking-tighter text-center my-2">Tax Invoice Form</h1> 
       <form onSubmit={handleSubmit} className=" p-3 w-full rounded-md  ">
         {/* Company Details */}
-        <fieldset className="border-[2px] border-zinc-500 shadow-lg p-2 rounded-md w-3/4 mx-auto ">
-        <legend className="text-2xl tracking-tight font-semibold">Company Details:</legend>
-        {/* logo */}
-        <input  type="file"
-        accept="image/*"
-        className="w-full text-gray-500 font-medium text-sm bg-gray-100 file:cursor-pointer cursor-pointer file:border-0 file:py-2 file:px-4 file:mr-4 file:bg-gray-800 file:hover:bg-gray-700 file:text-white rounded"  onChange={handleImageUpload}
-        
-         />
-
-          <input className=" px-2 py-3 rounded-md text-gray-800 text-lg w-full block my-2 border outline-none focus:shadow-md appearance-none shadow"
-            type="text"
-            placeholder="Company Name"
-            value={formData.companyDetails.name}
-            onChange={(e) =>
-              handleInputChange("companyDetails", "name", e.target.value)
-            }
-          />
-          <input className=" px-2 py-3 rounded-md text-gray-800 text-lg w-full block my-2 border outline-none focus:shadow-md appearance-none shadow"
-            type="text"
-            placeholder="GSTIN"
-            value={formData.companyDetails.gstin}
-            onChange={(e) =>
-              handleInputChange("companyDetails", "gstin", e.target.value)
-            }
-          />
-          <textarea className="px-2 py-3 rounded-md text-gray-800 text-lg w-full block my-2 border outline-none focus:shadow-md appearance-none shadow resize-none "
-            placeholder="Address"
-            value={formData.companyDetails.address}
-            onChange={(e) =>
-              handleInputChange("companyDetails", "address", e.target.value)
-            }
-          ></textarea>
-          <input className=" px-2 py-3 rounded-md text-gray-800 text-lg w-full block my-2 border outline-none focus:shadow-md appearance-none shadow"
-            type="phone"
-            placeholder="Contact"
-            value={formData.companyDetails.contact}
-            onChange={(e) =>
-              handleInputChange("companyDetails", "contact", e.target.value)
-            }
-          />
-        </fieldset>
-
+         <div className="grid md:grid-cols-2 gap-4  grid-cols-2 grid-rows-3 md:grid-rows-2">
+      <legend className="font-semibold text-lg text-gray-700 my-2 col-span-1">Company Details</legend><br />
+      <input type="file" accept="image/*" className=" col-span-1 py-2  px-1 rounded-sm  border-[1px]" onChange={handleImageUpload} />
+      <input
+        type="text"
+        placeholder="Company Name"
+        className=" col-span-1 border rounded px-2 focus:outline-none focus:ring-2 focus:ring-gray-100"
+        value={formData.companyDetails.name}
+        onChange={(e) => handleInputChange("companyDetails", "name", e.target.value)}
+      />
+      <input
+        type="text"
+        placeholder="GSTIN"
+        className=" col-span-1 px-2 border rounded  focus:outline-none focus:ring-2 focus:ring-blue-500"
+        value={formData.companyDetails.gstin}
+        onChange={(e) => handleInputChange("companyDetails", "gstin", e.target.value)}
+      />
+        <input
+        type="text"
+        placeholder="Contact"
+        className=" border rounded col-span-1 px-2 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        value={formData.companyDetails.contact}
+        onChange={(e) => handleInputChange("companyDetails", "contact", e.target.value)}
+      />
+      <textarea
+        placeholder="Address"
+        className=" col-span-2 px-2 py-2 border rounded mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        value={formData.companyDetails.address}
+        onChange={(e) => handleInputChange("companyDetails", "address", e.target.value)}
+      />
+    
+    
+    </div>
         {/* Customer Details */}
         
-        <fieldset className="border-[2px] border-zinc-500 shadow-lg p-2 rounded-md w-3/4 mx-auto">
-        <legend className="text-2xl tracking-tight font-semibold">Customer Details</legend>
-          <input className="px-2 py-3 rounded-md text-gray-800 text-lg w-full block my-2 border outline-none focus:shadow-md appearance-none shadow"
-            type="text"
-            placeholder="Customer Name"
-            value={formData.customerDetails.name}
-            onChange={(e) =>
-              handleInputChange("customerDetails", "name", e.target.value)
-            }
-          />
-          <textarea className="px-2 py-3 rounded-md text-gray-800 text-lg w-full block my-2 border outline-none focus:shadow-md appearance-none shadow resize-none"
-            placeholder="Billing Address"
-            value={formData.customerDetails.address}
-            onChange={(e) =>
-              handleInputChange("customerDetails", "address", e.target.value)
-            }
-          ></textarea>
-          <input className="px-2 py-3 rounded-md text-gray-800 text-lg w-full block my-2 border outline-none focus:shadow-md appearance-none shadow"
-            type="text"
-            placeholder="Contact"
-            value={formData.customerDetails.contact}
-            onChange={(e) =>
-              handleInputChange("customerDetails", "contact", e.target.value)
-            }
-          />
-        </fieldset>
+        <div className=" grid grid-cols-2 gap-3 grid-rows-2">
+      <legend className="font-semibold text-lg text-gray-700 col-span-full ">Customer Details</legend>
+      <input
+        type="text"
+        placeholder="Customer Name"
+        className=" p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+        value={formData.customerDetails.name}
+        onChange={(e) => handleInputChange("customerDetails", "name", e.target.value)}
+      />
+      <textarea
+        placeholder="Address"
+        className=" row-span-3 border rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        value={formData.customerDetails.address}
+        onChange={(e) => handleInputChange("customerDetails", "address", e.target.value)}
+      />
+      <input
+        type="text"
+        placeholder="GSTIN"
+        className=" p-2 border rounded  focus:outline-none focus:ring-2 focus:ring-blue-500"
+        value={formData.customerDetails.gstin}
+        onChange={(e) => handleInputChange("customerDetails", "gstin", e.target.value)}
+      />
+      <input
+        type="text"
+        placeholder="Contact"
+        className=" p-2 border rounded  focus:outline-none focus:ring-2 focus:ring-blue-500"
+        value={formData.customerDetails.contact}
+        onChange={(e) => handleInputChange("customerDetails", "contact", e.target.value)}
+      />
+    </div>
 
         {/* Invoice Details */}
-        <fieldset className="border-[2px] border-zinc-500 shadow-lg p-2 rounded-md w-3/4 mx-auto">
-          <legend className="text-2xl tracking-tight font-semibold">Invoice Details</legend>
-          <input className="px-2 py-3 rounded-md text-gray-800 text-base w-full block my-2 border outline-none focus:shadow-md appearance-none shadow"
-
-            type="text"
-            placeholder="Invoice Number"
-            value={formData.invoiceDetails.number}
-            onChange={(e) =>
-              handleInputChange("invoiceDetails", "number", e.target.value)
-            }
-          />
-          <input className="px-2 py-3 rounded-md text-gray-800 text-base w-full block my-2 border outline-none focus:shadow-md appearance-none shadow"
-            type="date"
-            placeholder="Invoice Date"
-            value={formData.invoiceDetails.date}
-            onChange={(e) =>
-              handleInputChange("invoiceDetails", "date", e.target.value)
-            }
-          />
-          <input className="px-2 py-3 rounded-md text-gray-800 text-base w-full block my-2 border outline-none focus:shadow-md appearance-none shadow"
-            type="date"
-            placeholder="Due Date"
-            value={formData.invoiceDetails.dueDate}
-            onChange={(e) =>
-              handleInputChange("invoiceDetails", "dueDate", e.target.value)
-            }
-          />
-          <input className="px-2 py-3 rounded-md text-gray-800 text-base w-full block my-2 border outline-none focus:shadow-md appearance-none shadow"
-            type="text"
-            placeholder="Place of Supply"
-            value={formData.invoiceDetails.placeOfSupply}
-            onChange={(e) =>
-              handleInputChange("invoiceDetails", "placeOfSupply", e.target.value)
-            }
-          />
-        </fieldset>
+        <div className=" grid md:grid-cols-3 gap-3 grid-cols-2 mt-4">
+      <legend className="font-semibold text-lg text-gray-700 col-span-full ">Invoice Details</legend>
+      <input
+        type="text"
+        placeholder="Invoice Number"
+        className="w-full p-3 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+        value={formData.invoiceDetails.number}
+        onChange={(e) => handleInputChange("invoiceDetails", "number", e.target.value)}
+      />
+      <input
+        type="date"
+        className="w-full p-3 border rounded  focus:outline-none focus:ring-2 focus:ring-blue-500"
+        value={formData.invoiceDetails.date}
+        onChange={(e) => handleInputChange("invoiceDetails", "date", e.target.value)}
+      />
+      <input
+        type="date"
+        className="w-full p-3 border rounded  focus:outline-none focus:ring-2 focus:ring-blue-500"
+        value={formData.invoiceDetails.dueDate}
+        onChange={(e) => handleInputChange("invoiceDetails", "dueDate", e.target.value)}
+      />
+      <input
+        type="text"
+        placeholder="Place of Supply"
+        className="md:col-span-2 p-3 border rounded  focus:outline-none focus:ring-2 focus:ring-blue-500"
+        value={formData.invoiceDetails.placeOfSupply}
+        onChange={(e) => handleInputChange("invoiceDetails", "placeOfSupply", e.target.value)}
+      />
+    </div>
 
         {/* Items */}
-        <fieldset className="border-[2px] border-zinc-500 shadow-lg p-2 rounded-md w-3/4 mx-auto">
-          <legend className="text-2xl tracking-tight font-semibold">Items</legend>
-          {formData.items.map((item, index) => (
-            <div key={index} className="itemRow">
-              <input className="px-2 py-3 rounded-md text-gray-800 text-base w-3/4  my-2 border outline-none focus:shadow-md appearance-none shadow"
-                type="text"
-                placeholder="Item Name"
-                value={item.name}
-                onChange={(e) =>
-                  handleInputChange("items", "name", e.target.value, index)
-                }
-              />
-              <input className="px-2 py-3 rounded-md text-gray-800 text-base ml-3 w-1/5 my-2 border outline-none focus:shadow-md appearance-none shadow"
-                type="text"
-                placeholder="HSN/SAC"
-                value={item.hsn}
-                onChange={(e) =>
-                  handleInputChange("items", "hsn", e.target.value, index)
-                }
-              />
-              <input className="px-2 py-3 rounded-md text-gray-800 text-base w-1/5 mr-1  my-2 border outline-none focus:shadow-md appearance-none shadow"
-                type="number"
-                placeholder="Tax (%)"
-                value={item.tax}
-                onChange={(e) =>
-                  handleInputChange("items", "tax", e.target.value, index)
-                }
-              />
-              <input className="px-2 py-3 rounded-md text-gray-800 text-base w-1/5 mx-4 my-2 border outline-none focus:shadow-md appearance-none shadow"
-                type="number"
-                placeholder="Qty"
-                value={item.qty}
-                onChange={(e) =>
-                  handleInputChange("items", "qty", e.target.value, index)
-                }
-              />
-              <input className="px-2 py-3 rounded-md text-gray-800 text-base w-1/4 mx-4 my-2 border outline-none focus:shadow-md appearance-none shadow"
-                type="number"
-                placeholder="Rate"
-                value={item.rate}
-                onChange={(e) =>
-                  handleInputChange("items", "rate", e.target.value, index)
-                }
-              />
-              <input className="px-2 py-3 rounded-md text-gray-800 text-base w-1/5 ml-4   my-2 border outline-none focus:shadow-md appearance-none shadow"
-                type="text"
-                placeholder="Unit"
-                value={item.unit}
-                onChange={(e) =>
-                  handleInputChange("items", "unit", e.target.value, index)
-                }
-              />
-              <button type="button " className="bg-red-500 px-2 py-1 mt-4 rounded-md  block text-lg mb-3" onClick={() => removeItem(index)}>
-                Remove
-              </button>
-            </div>
-          ))}
-          <button type="button"  className="bg-green-500 px-2 py-1 rounded-md text-lg" onClick={addItem}>
-            Add Item
-          </button>
-        </fieldset>
-
-        {/* Bank Details */}
-        <fieldset className="border-[2px] border-zinc-500 shadow-lg p-2 rounded-md w-3/4 mx-auto" > 
-          <legend className="text-2xl tracking-tight font-semibold">Bank Details</legend>
-          <input className=" px-2 py-3 rounded-md text-gray-800 text-lg w-full block my-2 border outline-none focus:shadow-md appearance-none shadow"
-            type="text" 
-            placeholder="Bank Name"
-            value={formData.bankDetails.name}
-            onChange={(e) =>
-              handleInputChange("bankDetails", "name", e.target.value)
-            }
+        <div className="mb-3">
+      <legend className="font-semibold text-lg text-gray-700 mb-3">Items</legend>
+      {formData.items.map((item, index) => (
+        <div key={index} className="grid grid-cols-2 gap-2 mb-4 grid-rows-4 ">
+          <input
+            type="text"
+            placeholder="Item Name"
+            className="p-3 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500 col-span-full"
+            value={item.name}
+            onChange={(e) => handleInputChange("items", "name", e.target.value, index)}
           />
           <input
-          className=" px-2 py-3 rounded-md text-gray-800 text-lg w-full block my-2 border outline-none focus:shadow-md appearance-none shadow"
             type="text"
-            placeholder="Account Number"
-            value={formData.bankDetails.accountNumber}
-            onChange={(e) =>
-              handleInputChange("bankDetails", "accountNumber", e.target.value)
-            }
+            placeholder="HSN"
+            className="p-3 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={item.hsn}
+            onChange={(e) => handleInputChange("items", "hsn", e.target.value, index)}
           />
-          <input className=" px-2 py-3 rounded-md text-gray-800 text-lg w-full block my-2 border outline-none focus:shadow-md appearance-none shadow"
+          <input
+            type="number"
+            placeholder="Rate"
+            className="p-3 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={item.rate}
+            onChange={(e) => handleInputChange("items", "rate", e.target.value, index)}
+          />
+          <input
+            type="number"
+            placeholder="Qty"
+            className="p-3 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={item.qty}
+            onChange={(e) => handleInputChange("items", "qty", e.target.value, index)}
+          />
+          <input
             type="text"
-            placeholder="IFSC"
-            value={formData.bankDetails.ifsc}
-            onChange={(e) =>
-              handleInputChange("bankDetails", "ifsc", e.target.value)
-            }
+            placeholder="Amount"
+            className="p-3 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={item.amount}
+            onChange={(e) => handleInputChange("items", "amount", e.target.value, index)}
           />
-          <input className=" px-2 py-3 rounded-md text-gray-800 text-lg w-full block my-2 border outline-none focus:shadow-md appearance-none shadow"
-            type="text"
-            placeholder="Branch"
-            value={formData.bankDetails.branch}
-            onChange={(e) =>
-              handleInputChange("bankDetails", "branch", e.target.value)
-            }
-          />
-        </fieldset>
+          <button type="button" className="bg-red-500 text-white px-3 rounded" onClick={() => removeItem(index)}>Remove</button>
+        </div>
+      ))}
+      <button type="button" className="bg-green-500 text -white px-4 py-2 rounded" onClick={addItem}>Add Item</button>
+    </div>
+
+        {/* Bank Details */}
+        <div className=" grid grid-cols-2 gap-3">
+      <legend className="font-semibold text-lg text-gray-700 col-span-full">Bank Details</legend>
+      <input
+        type="text"
+        placeholder="Bank Name"
+        className="w-full p-3 border rounded  focus:outline-none focus:ring-2 focus:ring-blue-500"
+        value={formData.bankDetails.name}
+        onChange={(e) => handleInputChange("bankDetails", "name", e.target.value)}
+      />
+      <input
+        type="text"
+        placeholder="Account Number"
+        className="w-full p-3 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+        value={formData.bankDetails.accountNumber}
+        onChange={(e) => handleInputChange("bankDetails", "accountNumber", e.target.value)}
+      />
+      <input
+        type="text"
+        placeholder="IFSC"
+        className="w-full p-3 border rounded  focus:outline-none focus:ring-2 focus:ring-blue-500"
+        value={formData.bankDetails.ifsc}
+        onChange={(e) => handleInputChange("bankDetails", "ifsc", e.target.value)}
+      />
+      <input
+        type="text"
+        placeholder="Branch"
+        className="w-full p-3 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+        value={formData.bankDetails.branch}
+        onChange={(e) => handleInputChange("bankDetails", "branch", e.target.value)}
+      />
+    </div>
 
         {/* Submit Button */}
-        <button type="submit" className="text-3xl bg-blue-500 py-2 px-3 rounded-md mt-5 text-center  mx-auto text-white hover:bg-blue-600 flex justify-center ">Generate Invoice</button>
+        <button type="submit" className="w-full bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700 transition duration-200 mt-5">Generate Invoice</button>
       </form>
+    
     </div>
+  {/* <TaxInvoiceOutput/> */}
+  </>
   );
 };
 
