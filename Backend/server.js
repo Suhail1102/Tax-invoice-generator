@@ -1,6 +1,10 @@
-const express = require('express');
-const cors = require('cors');
-const app = express();
+import express from 'express';
+import cors from 'cors';
+import mongoose from 'mongoose';
+import UserSchema from './models/FormModel.js';
+
+const app= express();
+
 
 // Middleware to parse JSON
 app.use(express.json());
@@ -27,6 +31,12 @@ app.post('/api/signup', (req, res) => {
   res.status(200).json({ message: 'user registered successfully!' });
 });
 
+
+const FormModel = await UserSchema.create({
+      name: 'suhail',
+      email: "suhail@gmail.com"
+})
+console.log(FormModel)
 // Start the server
 app.listen(5000, () => {
   console.log('Server is running on http://localhost:5000');

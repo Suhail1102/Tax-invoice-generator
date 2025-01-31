@@ -89,7 +89,7 @@ const TaxInvoiceForm = ({onSubmit}) => {
 
   return (
     <>
-    <div className=" min-h-screen bg-white py-3 px-4 sm:px-6 lg:px-8 container mx-auto shadow-md mt-3 border-[1px] max-w-3xl rounded-sm">
+    <div className=" min-h-screen bg-white py-3 px-4 sm:px-6 lg:px-8 container mx-auto shadow-md mt-3 border-[1px] max-w-3xl rounded-md mb-5">
       <h1 className=" text-2xl font-bold tracking-tighter text-center my-2">Tax Invoice Form</h1> 
       <form onSubmit={handleSubmit} className=" p-3 w-full rounded-md  ">
         {/* Company Details */}
@@ -224,13 +224,23 @@ const TaxInvoiceForm = ({onSubmit}) => {
             onChange={(e) => handleInputChange("items", "qty", e.target.value, index)}
           />
           <input
+            type="number"
+            placeholder="Tax"
+            className="p-3 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={item.tax}
+            onChange={(e) => handleInputChange("items", "tax", e.target.value, index)}
+          />
+          <input
             type="text"
             placeholder="Amount"
             className="p-3 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-            value={item.amount}
-            onChange={(e) => handleInputChange("items", "amount", e.target.value, index)}
+            value={(item.rate*item.qty)>0?(item.rate*item.qty):""}
+            onChange={
+            (e) => handleInputChange("items", "amount", e.target.value, index)}
           />
-          <button type="button" className="bg-red-500 text-white px-3 rounded" onClick={() => removeItem(index)}>Remove</button>
+        
+        
+          <button type="button" className="border-red-300 bg-red-300 border text-black px-3 rounded" onClick={() => removeItem(index)}>Remove</button>
         </div>
       ))}
       <button type="button" className="bg-green-500 text -white px-4 py-2 rounded" onClick={addItem}>Add Item</button>

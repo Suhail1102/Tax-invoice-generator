@@ -1,13 +1,24 @@
-import React from 'react'
+import {useState} from 'react'
 import Header from '../components/Header'
 import TaxInvoiceForm from '../components/TaxForm'
+import Footer from '../components/Footer'
+import TaxInvoiceOutput from '../components/TaxInvoiceOutput'
 
 function InvoicePage() {
+  const [formData, setFormData] = useState(null);
+  const handleFormSubmit = (data) => {
+    setFormData(data); 
+  }// Pass data from form submission
+
   return (
     <>
     <Header/>
-    <TaxInvoiceForm/>
-    
+    {!formData ? (
+        <TaxInvoiceForm onSubmit={handleFormSubmit} />
+      ) : (
+        <TaxInvoiceOutput formData={formData} />
+      )}
+    <Footer/>
     </>
   )
 }

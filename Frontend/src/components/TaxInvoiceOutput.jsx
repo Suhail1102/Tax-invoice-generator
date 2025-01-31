@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useRef } from "react";
 import logo from '../assets/logo.png'
 import logo2 from '../assets/logo2.png'
 import Table from "./Table";
 import Qrcode from './Qrcode'
+import { useReactToPrint } from "react-to-print";
 
 const TaxInvoiceOutput = ({ formData }) => {
+  const componentRef = useRef(formData); 
   const calculateTax = (amount, taxRate) => {
     return (amount * taxRate) / 100;
   };
@@ -25,93 +27,19 @@ const TaxInvoiceOutput = ({ formData }) => {
 
   const totals = calculateTotal();
 
+  const handlePrint = useReactToPrint({
+    
+    content: () => {
+      console.log(componentRef.current); 
+      componentRef.current}, // Pass the component to print
+  });
+
+
   return (
-    // <div style={{ fontFamily: "Arial, sans-serif", padding: "20px", border: "1px solid #ddd" }}>
-    //   <h2 style={{ textAlign: "center" }}>TAX INVOICE</h2>
-    //   <hr />
-    //   {/* Header Section */}
-    //   <div style={{ display: "flex", justifyContent: "space-between" }}>
-    //     <div>
-    //       <h3>{formData.companyDetails.name}</h3>
-    //       <p>GSTIN: {formData.companyDetails.gstin}</p>
-    //       <p>{formData.companyDetails.address}</p>
-    //       <p>Contact: {formData.companyDetails.contact}</p>
-    //     </div>
-    //     <div>
-    //       <p><strong>Invoice #:</strong> {formData.invoiceDetails.number}</p>
-    //       <p><strong>Invoice Date:</strong> {formData.invoiceDetails.date}</p>
-    //       <p><strong>Due Date:</strong> {formData.invoiceDetails.dueDate}</p>
-    //       <p><strong>Place of Supply:</strong> {formData.invoiceDetails.placeOfSupply}</p>
-    //     </div>
-    //   </div>
-    //   <hr />
-    //   {/* Customer Details */}
-    //   <div>
-    //     <h4>Customer Details</h4>
-    //     <p><strong>Name:</strong> {formData.customerDetails.name}</p>
-    //     <p><strong>Address:</strong> {formData.customerDetails.address}</p>
-    //     <p><strong>Contact:</strong> {formData.customerDetails.contact}</p>
-    //   </div>
-    //   <hr />
-    //   {/* Items Table */}
-    //   <table
-    //     style={{
-    //       width: "100%",
-    //       borderCollapse: "collapse",
-    //       marginBottom: "20px",
-    //       textAlign: "left",
-    //     }}
-    //   >
-    //     <thead>
-    //       <tr>
-    //         <th style={{ border: "1px solid #ddd", padding: "8px" }}>#</th>
-    //         <th style={{ border: "1px solid #ddd", padding: "8px" }}>Item</th>
-    //         <th style={{ border: "1px solid #ddd", padding: "8px" }}>HSN/SAC</th>
-    //         <th style={{ border: "1px solid #ddd", padding: "8px" }}>Qty</th>
-    //         <th style={{ border: "1px solid #ddd", padding: "8px" }}>Rate</th>
-    //         <th style={{ border: "1px solid #ddd", padding: "8px" }}>Tax (%)</th>
-    //         <th style={{ border: "1px solid #ddd", padding: "8px" }}>Amount</th>
-    //       </tr>
-    //     </thead>
-    //     <tbody>
-    //       {formData.items.map((item, index) => {
-    //         const itemTotal = item.qty * item.rate;
-    //         const itemTax = calculateTax(itemTotal, item.tax);
-    //         return (
-    //           <tr key={index}>
-    //             <td style={{ border: "1px solid #ddd", padding: "8px" }}>{index + 1}</td>
-    //             <td style={{ border: "1px solid #ddd", padding: "8px" }}>{item.name}</td>
-    //             <td style={{ border: "1px solid #ddd", padding: "8px" }}>{item.hsn}</td>
-    //             <td style={{ border: "1px solid #ddd", padding: "8px" }}>{item.qty}</td>
-    //             <td style={{ border: "1px solid #ddd", padding: "8px" }}>{item.rate}</td>
-    //             <td style={{ border: "1px solid #ddd", padding: "8px" }}>{item.tax}</td>
-    //             <td style={{ border: "1px solid #ddd", padding: "8px" }}>
-    //               ₹{(itemTotal + itemTax).toFixed(2)}
-    //             </td>
-    //           </tr>
-    //         );
-    //       })}
-    //     </tbody>
-    //   </table>
-    //   {/* Totals */}
-    //   <div style={{ textAlign: "right" }}>
-    //     <p><strong>Subtotal:</strong> ₹{totals.subtotal.toFixed(2)}</p>
-    //     <p><strong>Tax:</strong> ₹{totals.taxAmount.toFixed(2)}</p>
-    //     <p><strong>Grand Total:</strong> ₹{totals.grandTotal.toFixed(2)}</p>
-    //   </div>
-    //   <hr />
-    //   {/* Bank Details */}
-    //   <div>
-    //     <h4>Bank Details</h4>
-    //     <p><strong>Bank:</strong> {formData.bankDetails.name}</p>
-    //     <p><strong>Account #:</strong> {formData.bankDetails.accountNumber}</p>
-    //     <p><strong>IFSC:</strong> {formData.bankDetails.ifsc}</p>
-    //     <p><strong>Branch:</strong> {formData.bankDetails.branch}</p>
-    //   </div>
-    // </div>
+    
     <>
     {/* <h1 className="text-red-400 text-4xl text-center">TaxInvoiceOutput</h1> */}
-<div className="border-[2px] border-slate-600 md:w-[8.3in] h-[11.6in] mx-auto mt-5 flex flex-col box-border w-[85vw] overflow-hidden ">
+<div ref={componentRef} className="border-[2px] border-slate-600 md:w-[8.3in] h-[11.6in] mx-auto mt-5 flex flex-col box-border w-[85vw] overflow-hidden mb-5">
  {/* Tax Invoice heading */}
 <div className=" basis-2" > 
         <h1 className="text-2xl text-center border-b-[2px] border-slate-600 font-bold">Tax Invoice</h1>
@@ -325,6 +253,10 @@ const TaxInvoiceOutput = ({ formData }) => {
      </div>
 
 </div>
+
+<button onClick={handlePrint} className=" bg-red-200 p-3 text-xl">
+        Print Invoice
+      </button>
 
     </>
   );
