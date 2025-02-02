@@ -1,12 +1,10 @@
 import React, { useRef } from "react";
-import logo from '../assets/logo.png'
-import logo2 from '../assets/logo2.png'
-import Table from "./Table";
 import Qrcode from './Qrcode'
-import { useReactToPrint } from "react-to-print";
+import html2canvas from "html2canvas";
+import {jsPDF }from "jspdf"
 
 const TaxInvoiceOutput = ({ formData }) => {
-  const componentRef = useRef(formData); 
+  
   const calculateTax = (amount, taxRate) => {
     return (amount * taxRate) / 100;
   };
@@ -26,24 +24,68 @@ const TaxInvoiceOutput = ({ formData }) => {
   };
 
   const totals = calculateTotal();
+  const componentRef= useRef(null);
 
-  const handlePrint = useReactToPrint({
-    
-    content: () => {
-      console.log(componentRef.current); 
-      componentRef.current}, // Pass the component to print
-  });
-
+  const handleDownload = async () => {
+    const element = componentRef.current;
+  
+    // Ensure the page is at the top before capturing
+    window.scrollTo(0, 0);
+  
+    const canvas = await html2canvas(element, {
+      scale: 1.5, // Adjust scale for better quality
+      useCORS: true,
+      scrollX: 0,
+      scrollY: -window.scrollY, // Fix shifting issue
+      backgroundColor: "#ffffff", // Ensure white background
+    });
+  
+    const imageData = canvas.toDataURL("image/jpeg", 0.6); // Use JPEG to reduce size
+  
+    const pdf = new jsPDF({
+      orientation: "portrait",
+      unit: "mm",
+      format: "a4",
+    });
+  
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+    const pdfHeight = pdf.internal.pageSize.getHeight();
+  
+    // Define margins to prevent content being cut off
+    const marginX = 10;
+    const marginY = 10;
+  
+    // Maintain aspect ratio
+    const imgWidth = canvas.width;
+    const imgHeight = canvas.height;
+    const ratio = Math.min((pdfWidth - 2 * marginX) / imgWidth, (pdfHeight - 2 * marginY) / imgHeight);
+  
+    const finalWidth = imgWidth * ratio;
+    const finalHeight = imgHeight * ratio;
+  
+    // Add compressed image with proper margins
+    pdf.addImage(imageData, "JPEG", marginX, marginY, finalWidth, finalHeight);
+  
+    pdf.save("TaxInvoice.pdf");
+  };
+  
+  
 
   return (
     
     <>
-    {/* <h1 className="text-red-400 text-4xl text-center">TaxInvoiceOutput</h1> */}
-<div ref={componentRef} className="border-[2px] border-slate-600 md:w-[8.3in] h-[11.6in] mx-auto mt-5 flex flex-col box-border w-[85vw] overflow-hidden mb-5">
+ <div className="p-7">
+ <div ref={componentRef} 
+  className="border-[2px] border-slate-600 
+             w-[8.27in] h-[11.69in] 
+             mx-auto mt-5 flex flex-col box-border 
+             overflow-hidden mb-5 bg-white">
  {/* Tax Invoice heading */}
-<div className=" basis-2" > 
-        <h1 className="text-2xl text-center border-b-[2px] border-slate-600 font-bold">Tax Invoice</h1>
-     </div>
+ <div className="flex-none">
+    <h1 className="text-2xl text-center border-b-[2px] border-slate-600 font-bold">
+        Tax Invoice
+    </h1>
+</div>
 
      {/* form header */}
     
@@ -226,35 +268,29 @@ const TaxInvoiceOutput = ({ formData }) => {
     </div>
     {/* footer basis-1/6 */}
     
-    <div className="footer flex border-t-2 border-slate-600 basis-1/12 box-border text-sm  " style={{height:"142px"}}>
-    {/* footer left */}
-     <div className="basis-4/6 border-r-2 border-slate-600 footer-left pl-2">
-     <div>
-     <h3 className="font-bold mt-2">Notes:</h3>
-     <p>Thankyou for the Buisness!</p>
-     </div>
-     <div>
-        <h3 className="font-bold ">Terms And Conditions</h3>
-        <ul className="list-decimal pl-3 box-border leading-6">
-            <li>Goods once sold cannot be taken back or exchanged</li>
-            {/* <li>We are not manufacturer company will stand for warranty as per terms and Conditions</li> */}
-            <li>Interest at 24% will be charged for unclear bills beyond 15 days</li>
-            <li>subject to local jurisdiction.</li>
-        </ul>
-     </div>
+    <div className="footer flex border-t-2 border-slate-600 box-border text-sm h-auto min-h-[150px]">
+  <div className="basis-4/6 border-r-2 border-slate-600 p-2">
+    <h3 className="font-bold">Notes:</h3>
+    <p>Thank you for the business!</p>
 
-     
-     </div>
-     {/* footer right */}
-     <div className="basis-2/6">
-    <h1 className="text-end font-bold text-lg mr-4">For Company Name</h1>
-      <Qrcode/>
-     </div>
-     </div>
+    <h3 className="font-bold mt-2">Terms and Conditions</h3>
+    <ul className="list-decimal pl-4 space-y-1">
+      <li>Goods once sold cannot be taken back or exchanged.</li>
+      <li>Interest at 24% will be charged for unclear bills beyond 15 days.</li>
+      <li>Subject to local jurisdiction.</li>
+    </ul>
+  </div>
 
+  <div className="basis-2/6 flex flex-col justify-center items-end pr-4">
+    <h1 className="font-bold text-lg">For Company Name</h1>
+    <Qrcode />
+  </div>
 </div>
 
-<button onClick={handlePrint} className=" bg-red-200 p-3 text-xl">
+</div>
+</div>
+
+<button onClick={handleDownload} className=" bg-red-200 p-3 text-xl">
         Print Invoice
       </button>
 
