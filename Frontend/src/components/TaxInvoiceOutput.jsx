@@ -3,6 +3,8 @@ import Qrcode from './Qrcode'
 import html2canvas from "html2canvas";
 import {jsPDF }from "jspdf"
 
+
+
 const TaxInvoiceOutput = ({ formData }) => {
   
   const calculateTax = (amount, taxRate) => {
@@ -19,8 +21,9 @@ const TaxInvoiceOutput = ({ formData }) => {
       const itemTax = calculateTax(item.qty * item.rate, item.tax);
       return sum + itemTax;
     }, 0);
+    const totalQuantity = formData.items.reduce((sum, item) => sum + Number(item.qty), 0);
 
-    return { subtotal, taxAmount, grandTotal: subtotal + taxAmount };
+    return { subtotal, taxAmount, totalQuantity ,grandTotal: subtotal + taxAmount };
   };
 
   const totals = calculateTotal();
@@ -28,19 +31,18 @@ const TaxInvoiceOutput = ({ formData }) => {
 
   const handleDownload = async () => {
     const element = componentRef.current;
-  
-    // Ensure the page is at the top before capturing
     window.scrollTo(0, 0);
   
     const canvas = await html2canvas(element, {
-      scale: 1.5, // Adjust scale for better quality
+      scale: 2,
       useCORS: true,
       scrollX: 0,
-      scrollY: -window.scrollY, // Fix shifting issue
-      backgroundColor: "#ffffff", // Ensure white background
+      scrollY: -window.scrollY,
+      backgroundColor: "#ffffff",
+      willReadFrequently: true,
     });
   
-    const imageData = canvas.toDataURL("image/jpeg", 0.6); // Use JPEG to reduce size
+    const imageData = canvas.toDataURL("image/jpeg", 0.8);
   
     const pdf = new jsPDF({
       orientation: "portrait",
@@ -51,11 +53,9 @@ const TaxInvoiceOutput = ({ formData }) => {
     const pdfWidth = pdf.internal.pageSize.getWidth();
     const pdfHeight = pdf.internal.pageSize.getHeight();
   
-    // Define margins to prevent content being cut off
     const marginX = 10;
-    const marginY = 10;
+    const marginY = 15;
   
-    // Maintain aspect ratio
     const imgWidth = canvas.width;
     const imgHeight = canvas.height;
     const ratio = Math.min((pdfWidth - 2 * marginX) / imgWidth, (pdfHeight - 2 * marginY) / imgHeight);
@@ -63,25 +63,24 @@ const TaxInvoiceOutput = ({ formData }) => {
     const finalWidth = imgWidth * ratio;
     const finalHeight = imgHeight * ratio;
   
-    // Add compressed image with proper margins
     pdf.addImage(imageData, "JPEG", marginX, marginY, finalWidth, finalHeight);
-  
     pdf.save("TaxInvoice.pdf");
   };
+
   
-  
+
+ 
 
   return (
     
     <>
- <div className="p-7">
  <div ref={componentRef} 
   className="border-[2px] border-slate-600 
-             w-[8.27in] h-[11.69in] 
+            w-[8.27in] h-[12.69] 
              mx-auto mt-5 flex flex-col box-border 
              overflow-hidden mb-5 bg-white">
  {/* Tax Invoice heading */}
- <div className="flex-none">
+ <div className="flex-none max-h-10">
     <h1 className="text-2xl text-center border-b-[2px] border-slate-600 font-bold">
         Tax Invoice
     </h1>
@@ -103,8 +102,8 @@ const TaxInvoiceOutput = ({ formData }) => {
 
         <div className="header-left border-r-[2px] border-slate-600  basis-2/4  " style={{fontSize:"0.98rem" }}>
              <div className="flex flex-col h-full w-full ">
-                <div className="header-up border-b-2 border-slate-600 basis-2/4 flex justify-between items-center gap-2 px-1 ">
-                <div className="company-logo  h-[7rem] basis-2/5 ">
+                <div className="header-up border-b-2 border-slate-600 basis-2/4 flex  items-center gap-x-9 justify-start px-1 ">
+                <div className="company-logo  h-[7rem] basis-1/3">
                   <img src={formData.companyDetails.image} className="logo w-full h-full object-contain" alt="logo" />
                 </div>
                 <div className="company-details " style={{fontSize:"0.9rem"}}>
@@ -177,6 +176,7 @@ const TaxInvoiceOutput = ({ formData }) => {
                 <th className="hsn-col">HSN</th>
                 <th style={{width:"6rem"}}>Rate</th>
                 <th style={{width:"4rem"}}>Qty</th>
+                <th style={{width:"4rem"}}>Tax</th>
                 <th style={{width:"8rem"}}>Amount</th>
             </tr>
         </thead>
@@ -191,9 +191,10 @@ const TaxInvoiceOutput = ({ formData }) => {
                 <td style={{ border: "1px solid #ddd", padding: "8px" }}>{item.hsn}</td>
                 <td style={{ border: "1px solid #ddd", padding: "8px" }}>{item.rate}</td>
                 <td style={{ border: "1px solid #ddd", padding: "8px" }}>{item.qty}</td>
-                {/* <td style={{ border: "1px solid #ddd", padding: "8px" }}>{item.tax}</td> */}
+                <td style={{ border: "1px solid #ddd", padding: "8px" }}>{item.tax}</td>
                 <td style={{ border: "1px solid #ddd", padding: "8px" }}>
-                  ₹{(itemTotal + itemTax).toFixed(2)}
+                  {/* ₹{(itemTotal + itemTax).toFixed(2)} */}
+                  ₹{(itemTotal).toFixed(2)}
                 </td>
               </tr>
             );
@@ -205,8 +206,8 @@ const TaxInvoiceOutput = ({ formData }) => {
                 <td className='text-end '>Total</td>
                 <td className='border-none'></td>
                 <td className='border-none'></td>
-                <td className=''>500</td>
-                <td className=''>2346768.98</td>
+                <td className=''>{totals.totalQuantity}</td>
+                <td className=''>{totals.subtotal}</td>
             </tr>
         </tfoot>
     </table>
@@ -243,7 +244,7 @@ const TaxInvoiceOutput = ({ formData }) => {
 
         <div className="flex justify-around">
           <h3>Taxable Amount</h3>
-          <span>24324.43545</span>
+          <span>{formData.taxAmount}</span>
         </div>
         <div className="flex justify-around">
           <h3>Igst</h3>
@@ -258,7 +259,7 @@ const TaxInvoiceOutput = ({ formData }) => {
           <span>24324.43545</span>
         </div>
         <div>
-          <h2>GrandTotal</h2>
+          <h2>{totals.grandTotal}</h2>
         </div>
        
     
@@ -268,7 +269,7 @@ const TaxInvoiceOutput = ({ formData }) => {
     </div>
     {/* footer basis-1/6 */}
     
-    <div className="footer flex border-t-2 border-slate-600 box-border text-sm h-auto min-h-[150px]">
+    <div className="footer flex border-t-2 border-slate-600 box-border text-sm h-auto min-h-[150px] max-h-[150px]">
   <div className="basis-4/6 border-r-2 border-slate-600 p-2">
     <h3 className="font-bold">Notes:</h3>
     <p>Thank you for the business!</p>
@@ -288,11 +289,14 @@ const TaxInvoiceOutput = ({ formData }) => {
 </div>
 
 </div>
-</div>
+
 
 <button onClick={handleDownload} className=" bg-red-200 p-3 text-xl">
-        Print Invoice
+        Download Invoice
       </button>
+{/* <button onClick={handleprint} className=" bg-blue-400 p-3 text-xl mx-4">
+        Print Invoice
+      </button> */}
 
     </>
   );
