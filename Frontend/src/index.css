@@ -33,3 +33,35 @@ th {
     background-size: 100%;
     background-repeat: no-repeat;
  }
+
+ .fixed-size {
+    width: 794px; /* A4 width */
+    height: 1123px; /* A4 height */
+    overflow: hidden;
+    background-color: white;
+  }
+
+  @media print {
+    body * {
+      visibility: hidden;  /* Hide all elements */
+    }
+  
+    .print-container, .print-container * {
+      visibility: visible;  /* Show only the invoice */
+    }
+  
+    .print-container {
+      position: relative;
+      left: 0;
+      top: 0;
+      width: 100%;
+    }
+  }
+
+  .home-list .list:nth-child(even){
+ background-color: #f3dbff;
+ margin: 1.5rem 0;
+  }
+  .home-list .list{
+    padding: 5px;
+  }

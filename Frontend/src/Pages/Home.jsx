@@ -4,6 +4,8 @@ import Header from '../components/Header'
 import Hero from '../components/Hero'
 import TaxInvoiceForm from '../components/TaxForm'
 import Footer from '../components/Footer'
+import img1 from '../assets/img1.jpg'
+import img2 from '../assets/img2.jpg'
 export default function Home() {
 
     const [formData, setFormData] = useState(null);
@@ -52,19 +54,24 @@ Our free online tax generator is a ready-to-use software to conveniently generat
       {/* left column */}
       <div className='flex-1'>
       <h2 className='text-4xl my-4 px-7 text-center'>Tax Invoice Requirements</h2>
-      <ul className='text-xl'>
-        <li className='list-disc'> 
+      <ul className='text-xl home-list '>
+        <li className='list-disc list'> 
          Seller/Company’s logo</li>
-        <li>Seller/Supplier/Vendor’s information</li>
-        <li> Seller’s address, contact, & tax/GST registration no.</li>
-        <li>Client’s/Buyer’s/Receiver’s Information</li>
-        <li>Buyer’s name, address, & contact details</li>
-        <li> Issue date & Due date of Tax invoice</li>
-        <li>Tax invoice number</li>
-        <li>Details of the products & services</li>
+        <li className='list-disc list '>Seller/Supplier/Vendor’s information</li>
+        <li className='list-disc list'> Seller’s address, contact, & tax/GST registration no.</li>
+        <li className='list-disc list'>Client’s/Buyer’s/Receiver’s Information</li>
+        <li className='list-disc list'>Buyer’s name, address, & contact details</li>
+        <li className='list-disc list'> Issue date & Due date of Tax invoice</li>
+        <li className='list-disc list'>Tax invoice number</li>
+        <li className='list-disc list'>Details of the products & services</li>
       </ul>
       </div>
       </div>
+      <section className='container  mx-auto  box-border ' >
+        <div className='w-full h-full  flex justify-around items-center '>
+          <img src={img2} alt="" className='w-[30rem] h-[30rem]' />
+        </div>
+      </section>
    <Footer/>
     </>
   )

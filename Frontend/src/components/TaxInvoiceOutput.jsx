@@ -32,12 +32,13 @@ const TaxInvoiceOutput = ({ formData }) => {
   const handleDownload = async () => {
     const element = componentRef.current;
     window.scrollTo(0, 0);
-  
+
+  setTimeout(async () => {
     const canvas = await html2canvas(element, {
       scale: 2,
       useCORS: true,
       scrollX: 0,
-      scrollY: -window.scrollY,
+      scrollY: 0,
       backgroundColor: "#ffffff",
       willReadFrequently: true,
     });
@@ -46,8 +47,8 @@ const TaxInvoiceOutput = ({ formData }) => {
   
     const pdf = new jsPDF({
       orientation: "portrait",
-      unit: "mm",
-      format: "a4",
+      unit: "px",
+      format: 'a4',
     });
   
     const pdfWidth = pdf.internal.pageSize.getWidth();
@@ -64,21 +65,31 @@ const TaxInvoiceOutput = ({ formData }) => {
     const finalHeight = imgHeight * ratio;
   
     pdf.addImage(imageData, "JPEG", marginX, marginY, finalWidth, finalHeight);
-    pdf.save("TaxInvoice.pdf");
+    pdf.save("TaxInvoice.pdf");},1000)
   };
 
+  const handlePrint = () => {
+    if (componentRef.current) {
+      // Temporarily add print class
+      componentRef.current.classList.add("print-container");
   
-
- 
-
+      // Trigger print
+      window.print();
+  
+      // Remove class after printing (to avoid affecting normal view)
+      setTimeout(() => {
+        componentRef.current.classList.remove("print-container");
+      }, 1000);
+    }
+  };
   return (
-    
     <>
+    <div className="">
  <div ref={componentRef} 
-  className="border-[2px] border-slate-600 
-            w-[8.27in] h-[12.69] 
-             mx-auto mt-5 flex flex-col box-border 
-             overflow-hidden mb-5 bg-white">
+  className="border-[2px] border-slate-600 print-container
+            w-[8.27in] mx-auto h-[11.69in]
+            mt-5 flex flex-col box-border 
+             overflow-hidden mb-5 bg-white " style={{lineHeight:"0.5 !important"}}>
  {/* Tax Invoice heading */}
  <div className="flex-none max-h-10">
     <h1 className="text-2xl text-center border-b-[2px] border-slate-600 font-bold">
@@ -258,8 +269,9 @@ const TaxInvoiceOutput = ({ formData }) => {
           <h3>SGST </h3>
           <span>24324.43545</span>
         </div>
-        <div>
-          <h2>{totals.grandTotal}</h2>
+        <div className="flex justify-around">
+          <h2>Graond Total</h2>
+          <span>{totals.grandTotal}</span>
         </div>
        
     
@@ -291,12 +303,13 @@ const TaxInvoiceOutput = ({ formData }) => {
 </div>
 
 
-<button onClick={handleDownload} className=" bg-red-200 p-3 text-xl">
+<button onClick={handleDownload} className=" bg-blue-400 p-3 lg:text-xl h-14 rounded-md text-sm">
         Download Invoice
       </button>
-{/* <button onClick={handleprint} className=" bg-blue-400 p-3 text-xl mx-4">
+<button onClick={handlePrint} className=" bg-blue-400 p-3 text-xl mx-4">
         Print Invoice
-      </button> */}
+      </button>
+      </div>
 
     </>
   );
