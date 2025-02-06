@@ -12,13 +12,13 @@ function InvoicePage() {
 
   return (
     <>
-    <Header/>
+    {/* <Header/> */}
     {!formData ? (
         <TaxInvoiceForm onSubmit={handleFormSubmit} />
       ) : (
         <TaxInvoiceOutput formData={formData} />
       )}
-    <Footer/>
+    {/* <Footer/> */}
     </>
   )
 }

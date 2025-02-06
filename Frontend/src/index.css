@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+body{
+  font-family: "Roboto", serif;
+}
 *{
 margin: 0;
 padding: 0;
@@ -62,6 +65,8 @@ th {
  background-color: #f3dbff;
  margin: 1.5rem 0;
   }
-  .home-list .list{
+  .home-list .list{ 
     padding: 5px;
+    font-family: "Roboto", serif;
+    font-weight: 300;
   }

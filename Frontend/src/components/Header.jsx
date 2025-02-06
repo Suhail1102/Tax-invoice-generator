@@ -24,7 +24,7 @@ function Header({toggleDarkMode}) {
   }
   return (
     <>
-     <header className={` dark:text-white text-black sticky top-0 shadow-md transition-all  dark:shadow-slate-800 backdrop-blur-sm sm:h-16 md:h-full`} >
+     <header className={` dark:text-white text-black sticky top-0 shadow-md transition-all z-10 dark:shadow-slate-800 backdrop-blur-sm sm:h-16 md:h-full`} >
       <nav className="container mx-auto flex items-center justify-between py-4 md:px-6 px-2">
         {/* Branding */}
         <NavLink to="/" className="md:text-2xl font-bold hover:text-gray-200 text-lg">
