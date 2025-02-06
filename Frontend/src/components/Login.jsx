@@ -5,6 +5,33 @@ import bgimage from '../assets/bgimage.jpg'
 import { NavLink } from 'react-router';
 
 function Login() {
+  const[formData , setFormData] = useState(
+    {
+      email:"",
+      password:""
+    }
+  );
+const handleChange =(e)=>{
+  const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value
+    }));
+}
+const handleSubmit=(e)=>{
+  e.preventDefault();
+
+  const dataToSend = {
+    email: formData.email,
+    password: formData.password
+  }
+  setFormData({
+    email:"",
+    password:""
+  })
+
+  console.log(dataToSend)
+}
  
   return (
     <>
@@ -22,15 +49,18 @@ function Login() {
             Sign Up
           </a>
         </p>
-        <form className="mt-6">
+        <form className="mt-6" onSubmit={handleSubmit}>
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-semibold mb-2">
               Email Address
             </label>
             <input
+            name="email"
               type="email"
               placeholder="you@example.com"
+              value={formData.email}
               className="w-full px-4 py-2 bg-gray-100 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+              onChange={handleChange}
             />
           </div>
           <div className="mb-4">
@@ -39,8 +69,11 @@ function Login() {
             </label>
             <input
               type="password"
+              name='password'
+              value={formData.password}
               placeholder="Enter 6 characters or more"
               className="w-full px-4 py-2 bg-gray-100 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+              onChange={handleChange}
             />
             <a
               href="#"
