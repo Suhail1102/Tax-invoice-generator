@@ -1,8 +1,11 @@
 import React from 'react'
-import { useState } from 'react';
+import { useState, } from 'react';
 import heroimg from '../assets/heroimg.png'
-import bgimage from '../assets/bgimage.jpg'
-import { NavLink } from 'react-router';
+import { NavLink, useNavigate , useLocation} from 'react-router-dom';
+import Alert from '@mui/material/Alert';
+import CheckIcon from '@mui/icons-material/Check';
+import PriorityHighIcon from '@mui/icons-material/PriorityHigh';
+
 
 function Login() {
   const[formData , setFormData] = useState(
@@ -11,6 +14,10 @@ function Login() {
       password:""
     }
   );
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
+  const location = useLocation();
+
 const handleChange =(e)=>{
   const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -18,24 +25,41 @@ const handleChange =(e)=>{
       [name]: value
     }));
 }
-const handleSubmit=(e)=>{
+const handleSubmit = async (e) => {
   e.preventDefault();
+  setError('');
 
-  const dataToSend = {
-    email: formData.email,
-    password: formData.password
+  try {
+    const response = await fetch('http://localhost:5000/api/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData),
+      credentials: 'include' // Important for sending cookies
+    });
+
+    const data = await response.json();
+    if (!response.ok) {
+      throw new Error(data.message || 'Login failed');
+    }
+
+    localStorage.setItem('token', data.token);
+    const redirectPath = location.state?.from?.pathname || "/";
+    navigate(redirectPath, { replace: true });// Redirect after login
+
+
+  } catch (error) {
+    setError(error.message);
+    setTimeout(() => {
+      setError('')
+    }, 2000);
   }
-  setFormData({
-    email:"",
-    password:""
-  })
-
-  console.log(dataToSend)
-}
+};
  
   return (
     <>
     <div className="flex min-h-screen items-center justify-center bg-image">
+      <div className='absolute md:top-20 md:left-[44rem] left-20'>{error &&  <Alert icon={!error ?<CheckIcon fontSize="inherit" />:<PriorityHighIcon fontSize="inherit"/>} severity={`${error?"error":"success"}`}>{error}
+    </Alert>}</div>
     <div className="flex flex-col lg:flex-row w-full max-w-4xl bg-transparent shadow-lg rounded-2xl overflow-hidden">
       {/* Left Form Section */}
       <div className="w-full lg:w-1/2 p-8 bg-white">
