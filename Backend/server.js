@@ -79,24 +79,35 @@ app.post('/api/login', async (req, res) => {
 
 // Middleware for authentication
 const authMiddleware = (req, res, next) => {
-  const token = req.cookies.token;
-  if (!token) {
-    return res.status(401).json({ message: 'Unauthorized' });
+  let token = req.cookies.token; // Check cookies first
+  if (!token && req.headers.authorization) {
+    token = req.headers.authorization.split(" ")[1]; // Extract from header
   }
-  
-  jwt.verify(token, 'your_jwt_secret', (err, decoded) => {
+
+  if (!token) {
+    return res.status(401).json({ message: "Unauthorized" });
+  }
+
+  jwt.verify(token, "your_jwt_secret", (err, decoded) => {
     if (err) {
-      return res.status(401).json({ message: 'Invalid token' });
+      return res.status(401).json({ message: "Invalid token" });
     }
     req.user = decoded;
     next();
   });
 };
 
+
 // Protected Route
 app.get('/api/protected', authMiddleware, (req, res) => {
   res.json({ message: 'You have access to this protected route', user: req.user });
 });
+
+// Verify Token Route
+app.get('/api/verify-token', authMiddleware, (req, res) => {
+  res.json({ user: req.user }); // Send back user details if token is valid
+});
+
 
 // Logout Route
 app.post('/api/logout', (req, res) => {

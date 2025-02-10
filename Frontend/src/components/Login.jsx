@@ -5,6 +5,8 @@ import { NavLink, useNavigate , useLocation} from 'react-router-dom';
 import Alert from '@mui/material/Alert';
 import CheckIcon from '@mui/icons-material/Check';
 import PriorityHighIcon from '@mui/icons-material/PriorityHigh';
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
 
 
 function Login() {
@@ -15,6 +17,7 @@ function Login() {
     }
   );
   const [error, setError] = useState('');
+  const [message, setMessage] = useState('');
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -25,6 +28,7 @@ const handleChange =(e)=>{
       [name]: value
     }));
 }
+const [open, setOpen] = React.useState(false);
 const handleSubmit = async (e) => {
   e.preventDefault();
   setError('');
@@ -34,7 +38,7 @@ const handleSubmit = async (e) => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formData),
-      credentials: 'include' // Important for sending cookies
+      credentials: 'include' 
     });
 
     const data = await response.json();
@@ -43,23 +47,48 @@ const handleSubmit = async (e) => {
     }
 
     localStorage.setItem('token', data.token);
+    
+    // Debugging log
+    console.log("Redirect Path:", location.state?.from?.pathname); 
+      
     const redirectPath = location.state?.from?.pathname || "/";
-    navigate(redirectPath, { replace: true });// Redirect after login
-
+      setMessage(data.message)
+      setOpen(true)
+    setTimeout(() => {
+      navigate(redirectPath, { replace: true });
+      window.location.reload();
+      setOpen(false)
+    }, 1500);
+   
+    
 
   } catch (error) {
     setError(error.message);
     setTimeout(() => {
-      setError('')
+      setError('');
     }, 2000);
   }
 };
+
  
-  return (
+  return (  
     <>
     <div className="flex min-h-screen items-center justify-center bg-image">
-      <div className='absolute md:top-20 md:left-[44rem] left-20'>{error &&  <Alert icon={!error ?<CheckIcon fontSize="inherit" />:<PriorityHighIcon fontSize="inherit"/>} severity={`${error?"error":"success"}`}>{error}
-    </Alert>}</div>
+    <div className='absolute md:top-20 md:left-[44rem] left-20'>
+      {/* Render error alert if there is an error */}
+      {error && (
+        <Alert icon={<PriorityHighIcon fontSize="inherit" />} severity="error">
+          {error}
+        </Alert>
+      )}
+
+      {/* Render success alert if there is a message */}
+      {message && !error && (
+        <Alert icon={<CheckIcon fontSize="inherit" />} severity="success">
+          {message}
+        </Alert>
+      )}
+    </div>
     <div className="flex flex-col lg:flex-row w-full max-w-4xl bg-transparent shadow-lg rounded-2xl overflow-hidden">
       {/* Left Form Section */}
       <div className="w-full lg:w-1/2 p-8 bg-white">
@@ -116,7 +145,7 @@ const handleSubmit = async (e) => {
             type="submit"
             className="w-full py-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 transition duration-300"
           >
-            LOGIN
+          Login
           </button>
         </form>
         <p className="mt-6 text-center text-gray-600 text-sm">or login with</p>
@@ -148,6 +177,13 @@ const handleSubmit = async (e) => {
         />
       </div>
     </div>
+    <Backdrop
+        sx={(theme) => ({ color: '#fff', zIndex: theme.zIndex.drawer + 1 })}
+        open={open}
+      
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
   </div>
   </>
 );

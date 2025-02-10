@@ -10,6 +10,8 @@ function InvoicePage() {
     setFormData(data); 
   }// Pass data from form submission
 
+  console.log({formData});
+
   return (
     <>
     {/* <Header/> */}

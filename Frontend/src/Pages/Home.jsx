@@ -16,6 +16,7 @@ import CreditCardIcon from '@mui/icons-material/CreditCard'
 import PercentIcon from '@mui/icons-material/Percent';
 import DescriptionIcon from '@mui/icons-material/Description';
 import SummarizeIcon from '@mui/icons-material/Summarize';
+import Stepper from '../components/Stepper'
 
 export default function Home() {
 
@@ -90,6 +91,12 @@ Our free online tax generator is a ready-to-use software to conveniently generat
          <span className='cursor-pointer'><SummarizeIcon className='text-purple-700 '/> Reports</span>
         </div>
       </section>
+
+{/* stepper */}
+
+
+ <Stepper/>
+
       <section className='container box-border ' >
         <div className='md:w-[95vw] h-full  flex  justify-evenly items-center my-10 flex-wrap '>
           <motion.img src={invoice} alt="" className='w-[18rem] h-[18rem]'  initial={{ opacity: 0, x:-50 }} // Start hidden & below

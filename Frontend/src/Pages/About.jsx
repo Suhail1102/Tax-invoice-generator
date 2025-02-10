@@ -1,7 +1,7 @@
 import React from 'react'
 import Header from '../components/Header'
-import Footer from '../components/Footer'
 import img3 from '../assets/img3.jpg'
+import Footer from "../components/Footer";
 
 function About() {
   return (

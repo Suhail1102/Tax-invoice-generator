@@ -10,9 +10,13 @@ import InvoicePage from './Pages/InvoicePage';
 import { Navigate } from 'react-router-dom';
 import PrivateRoute from './Authentication/PrivateRoute';
 import { AuthContext } from './Authentication/AuthContext';
+import Features from './Pages/Features';
+import Pricing from './Pages/Pricing';
+import Contact from './Pages/Contact';
 
 function App() {
   const { user }= useContext(AuthContext);
+
   
   return (
     <>
@@ -23,11 +27,12 @@ function App() {
       <Routes>
         <Route path='/' element={<Home/>}/>
         <Route path='/about' element={<About/>}/>
-        <Route path='/login' element={user ? <Navigate to="/" /> : <LoginPage />}/>
+        <Route path='/login' element={user ? <Navigate to="/"/> : <LoginPage />}/>
         <Route path='/signup' element={<SignupPage/>}/>
         <Route path='/invoice/form' element={ <PrivateRoute> <InvoicePage/></PrivateRoute>}/>
-   
- 
+        <Route path='/features' element={<Features/>}/>
+        <Route path='/pricing' element={<Pricing/>}/>
+        <Route path='/contact' element={<Contact/>}/>
     
       {/* <TaxInvoiceOutput  />   */}
    </Routes>

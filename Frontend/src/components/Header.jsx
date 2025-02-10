@@ -7,11 +7,14 @@ import Drawer from "@mui/material/Drawer";
 import { NavLink } from "react-router-dom";
 import { AuthContext } from "../Authentication/AuthContext";
 import { useNavigate } from "react-router-dom";
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
 
 function Header({ toggleDarkMode }) {
   const [lighticon, setlighticon] = useState(false);
 
   const [open, setOpen] = useState(false);
+  const [drop, setDrop] = useState(false);
 
   const toggleDrawer = (newOpen) => {
     setOpen(newOpen);
@@ -32,7 +35,12 @@ function Header({ toggleDarkMode }) {
       credentials: "include",
     }).then(() => {
       logout();
-      navigate("/login");
+      setDrop(true)
+      setTimeout(() => {
+        navigate("/");
+        setDrop(false)
+      }, 1500);
+     
     });
   };
 
@@ -113,36 +121,68 @@ function Header({ toggleDarkMode }) {
               </NavLink>
             </li>
             <li>
-              <a
-                href="/about"
+              <NavLink
+                to="/about"
                 className="hover:text-gray-300 transition duration-200"
+                style={({ isActive }) =>
+                  isActive
+                    ? {
+                        textDecoration: "underline",
+                        textDecorationThickness: "2px",
+                      }
+                    : {}
+                }
               >
                 About
-              </a>
+              </NavLink>
             </li>
             <li>
-              <a
-                href="/features"
+              <NavLink
+                to="/features"
                 className="hover:text-gray-300 transition duration-200"
+                style={({ isActive }) =>
+                  isActive
+                    ? {
+                        textDecoration: "underline",
+                        textDecorationThickness: "2px",
+                      }
+                    : {}
+                }
               >
                 Features
-              </a>
+              </NavLink>
             </li>
             <li>
-              <a
-                href="/pricing"
+              <NavLink
+                to="/pricing"
                 className="hover:text-gray-300 transition duration-200"
+                style={({ isActive }) =>
+                  isActive
+                    ? {
+                        textDecoration: "underline",
+                        textDecorationThickness: "2px",
+                      }
+                    : {}
+                }
               >
                 Pricing
-              </a>
+              </NavLink>
             </li>
             <li>
-              <a
-                href="/contact"
+              <NavLink
+                to="/contact"
                 className="hover:text-gray-300 transition duration-200"
+                style={({ isActive }) =>
+                  isActive
+                    ? {
+                        textDecoration: "underline",
+                        textDecorationThickness: "2px",
+                      }
+                    : {}
+                }
               >
                 Contact
-              </a>
+              </NavLink>
             </li>
             <li
               onClick={toggleDarkMode}
@@ -169,6 +209,7 @@ function Header({ toggleDarkMode }) {
                       <a
                         href="/login"
                         className=" dark:bg-zinc-700 dark:text-white  bg-gray-200 text-blue-600 px-4 py-2 rounded-full hover:bg-gray-100 transition duration-200"
+                        
                       >
                         Login
                       </a>
@@ -214,6 +255,13 @@ function Header({ toggleDarkMode }) {
           </ul>
         </nav>
       </header>
+      <Backdrop
+        sx={(theme) => ({ color: '#fff', zIndex: theme.zIndex.drawer + 1 })}
+        open={drop}
+      
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
     </>
   );
 }
