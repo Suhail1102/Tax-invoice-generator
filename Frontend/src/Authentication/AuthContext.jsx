@@ -39,6 +39,7 @@ export const AuthProvider = ({ children }) => {
     } else {
       // Token not found, so logout (or leave user as null)
       setUser(null);
+      setLoading(false)
     }
   }, []);
   

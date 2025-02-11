@@ -1,11 +1,7 @@
 import React from "react";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
-
 export default function Contact() {
     return (
         <>
-        <Header/>
       <section className="py-16 bg-gray-100">
         <div className="max-w-7xl mx-auto px-6">
           {/* Header Section */}
@@ -75,7 +71,7 @@ export default function Contact() {
           </div>
         </div>
       </section>
-      <Footer/>
+     
       </>
     );
   }

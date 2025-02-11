@@ -1,6 +1,4 @@
 import { CheckCircle, FileText, Printer, ShieldCheck, Layers, Settings } from "lucide-react";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
 
 const features = [
   {
@@ -38,7 +36,6 @@ const features = [
 export default function Features() {
   return (
     <>
-    <Header/>
     <section className="py-12 bg-gray-50">
       <div className="max-w-6xl mx-auto px-6 text-center">
         <h2 className="text-3xl font-bold text-gray-800 sm:text-4xl">
@@ -59,7 +56,6 @@ export default function Features() {
         </div>
       </div>
     </section>
-    <Footer/>
     </>
   );
 }

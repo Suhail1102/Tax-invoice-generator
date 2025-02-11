@@ -4,14 +4,28 @@ import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import { Tooltip } from "@mui/material";
 import Drawer from "@mui/material/Drawer";
-import { NavLink } from "react-router-dom";
 import { AuthContext } from "../Authentication/AuthContext";
 import { useNavigate } from "react-router-dom";
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
+import { Link } from 'react-scroll';
+import Avatar from '@mui/material/Avatar';
+import { deepPurple } from '@mui/material/colors';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+
+
 
 function Header({ toggleDarkMode }) {
   const [lighticon, setlighticon] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const newopen = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   const [open, setOpen] = useState(false);
   const [drop, setDrop] = useState(false);
@@ -51,12 +65,12 @@ function Header({ toggleDarkMode }) {
       >
         <nav className="container mx-auto flex items-center justify-between py-4 md:px-6 px-2">
           {/* Branding */}
-          <NavLink
+          <Link
             to="/"
-            className="md:text-2xl font-bold hover:text-gray-200 text-lg"
+            className="md:text-2xl font-bold hover:text-gray-200 text-lg cursor-pointer"
           >
             Tax Invoice Generator
-          </NavLink>
+          </Link>
 
           {/* Mobile Menu Button */}
           <div className="md:hidden flex gap-3 mr-3">
@@ -105,84 +119,48 @@ function Header({ toggleDarkMode }) {
             className="hidden md:flex space-x-6 items-center font-medium"
           >
             <li>
-              <NavLink
-                to="/"
-                className="hover:text-gray-300 transition duration-200"
-                style={({ isActive }) =>
-                  isActive
-                    ? {
-                        textDecoration: "underline",
-                        textDecorationThickness: "2px",
-                      }
-                    : {}
-                }
+              <Link
+                to="home" smooth={true} duration={500}  hashSpy={true} spy={true} activeClass="text-purple-500 underline underline-offset-2"
+                className="hover:text-gray-300 transition duration-200 cursor-pointer"
               >
                 Home
-              </NavLink>
+              </Link>
             </li>
             <li>
-              <NavLink
-                to="/about"
-                className="hover:text-gray-300 transition duration-200"
-                style={({ isActive }) =>
-                  isActive
-                    ? {
-                        textDecoration: "underline",
-                        textDecorationThickness: "2px",
-                      }
-                    : {}
-                }
+              <Link
+                to="about" smooth={true} duration={500}  spy={true}   hashSpy={true} activeClass="text-purple-500 underline underline-offset-2" onSetActive={() => console.log("About section is now active")}
+                className="hover:text-gray-300 transition duration-200 cursor-pointer"
+                
               >
                 About
-              </NavLink>
+              </Link>
             </li>
             <li>
-              <NavLink
-                to="/features"
-                className="hover:text-gray-300 transition duration-200"
-                style={({ isActive }) =>
-                  isActive
-                    ? {
-                        textDecoration: "underline",
-                        textDecorationThickness: "2px",
-                      }
-                    : {}
-                }
+              <Link
+                to="features" smooth={true} duration={500}  spy={true}   hashSpy={true} activeClass="text-purple-500 underline underline-offset-2"
+                className="hover:text-gray-300 transition duration-200 cursor-pointer"
+               
               >
                 Features
-              </NavLink>
+              </Link>
             </li>
             <li>
-              <NavLink
-                to="/pricing"
-                className="hover:text-gray-300 transition duration-200"
-                style={({ isActive }) =>
-                  isActive
-                    ? {
-                        textDecoration: "underline",
-                        textDecorationThickness: "2px",
-                      }
-                    : {}
-                }
+              <Link
+                to="pricing" smooth={true} duration={500}  spy={true}   hashSpy={true} activeClass="text-purple-500 underline underline-offset-2"
+                className="hover:text-gray-300 transition duration-200 cursor-pointer"
+                
               >
                 Pricing
-              </NavLink>
+              </Link>
             </li>
             <li>
-              <NavLink
-                to="/contact"
-                className="hover:text-gray-300 transition duration-200"
-                style={({ isActive }) =>
-                  isActive
-                    ? {
-                        textDecoration: "underline",
-                        textDecorationThickness: "2px",
-                      }
-                    : {}
-                }
+              <Link
+                to="contact" smooth={true} duration={500}  spy={true}   hashSpy={true} activeClass="text-purple-500 underline underline-offset-2"
+                className="hover:text-gray-300 transition duration-200 cursor-pointer"
+                
               >
                 Contact
-              </NavLink>
+              </Link>
             </li>
             <li
               onClick={toggleDarkMode}
@@ -201,14 +179,32 @@ function Header({ toggleDarkMode }) {
               </span>
             </li>
             <li>
-                    {user ? (
-                      
-                        <button onClick={handleLogout}>Logout</button>
+                    {user ? (<>
+                      <Avatar       id="basic-button"
+        aria-controls={newopen ? 'basic-menu' : undefined}
+        aria-haspopup="true"
+        aria-expanded={newopen ? 'true' : undefined}
+        className="cursor-pointer"
+        onClick={handleClick} sx={{ bgcolor: deepPurple[500] }}>SA</Avatar>
+                      <Menu
+        id="basic-menu"
+        anchorEl={anchorEl}
+        open={newopen}
+        onClose={handleClose}
+        MenuListProps={{
+          'aria-labelledby': 'basic-button',
+        }}
+      >
+        <MenuItem onClick={handleClose}>Profile</MenuItem>
+        <MenuItem onClick={handleClose}>My account</MenuItem>
+        <MenuItem onClick={handleLogout} className=" dark:bg-zinc-700 dark:text-white  bg-gray-200 text-red-500 px-4 py-2 rounded-full hover:bg-gray-100 transition duration-200">Logout</MenuItem>
+      </Menu>
                     
+                        </>
                     ) : (
                       <a
                         href="/login"
-                        className=" dark:bg-zinc-700 dark:text-white  bg-gray-200 text-blue-600 px-4 py-2 rounded-full hover:bg-gray-100 transition duration-200"
+                        className=" dark:bg-zinc-700 dark:text-white  bg-gray-200 text-purple-600 px-4 py-2 rounded-full hover:bg-gray-100 transition duration-200"
                         
                       >
                         Login
@@ -238,12 +234,12 @@ function Header({ toggleDarkMode }) {
                   <li>
                     {user ? (
                       
-                        <button onClick={handleLogout}>Logout</button>
+                        <button onClick={handleLogout} className=" dark:bg-zinc-700 dark:text-white  bg-gray-200 text-red-500 px-4 py-2 rounded-full hover:bg-gray-100 transition duration-200">Logout</button>
                     
                     ) : (
                       <a
                         href="/login"
-                        className=" dark:bg-zinc-700 dark:text-white  bg-gray-200 text-blue-600 px-4 py-2 rounded-full hover:bg-gray-100 transition duration-200"
+                        className=" dark:bg-zinc-700 dark:text-white  bg-gray-200 text-purple-600 px-4 py-2 rounded-full hover:bg-gray-100 transition duration-200"
                       >
                         Login
                       </a>
