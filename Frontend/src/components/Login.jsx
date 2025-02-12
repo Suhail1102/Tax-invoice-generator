@@ -7,6 +7,7 @@ import CheckIcon from '@mui/icons-material/Check';
 import PriorityHighIcon from '@mui/icons-material/PriorityHigh';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
+import { Eye , EyeOff} from 'lucide-react';
 
 
 function Login() {
@@ -28,6 +29,10 @@ const handleChange =(e)=>{
       [name]: value
     }));
 }
+
+const[showPassword , setShowPassword] = useState(false);
+
+
 const [open, setOpen] = React.useState(false);
 const handleSubmit = async (e) => {
   e.preventDefault();
@@ -120,14 +125,20 @@ const handleSubmit = async (e) => {
             <label className="block text-gray-700 text-sm font-semibold mb-2">
               Password
             </label>
+            <span className='relative'>
             <input
-              type="password"
+              type={showPassword?"text":"password"}
               name='password'
               value={formData.password}
               placeholder="Enter 6 characters or more"
               className="w-full px-4 py-2 bg-gray-100 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
               onChange={handleChange}
             />
+            { showPassword?
+            <Eye className='absolute top-0 right-1 cursor-pointer'  onClick={()=>setShowPassword(!showPassword)} /> :
+            <EyeOff className='absolute top-0 right-1 cursor-pointer' onClick={()=>setShowPassword(!showPassword)} />
+            }
+            </span>
             <a
               href="#"
               className="text-sm text-blue-600 hover:underline mt-2 block"
