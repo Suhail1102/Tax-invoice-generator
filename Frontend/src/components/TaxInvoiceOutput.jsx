@@ -84,7 +84,8 @@ const TaxInvoiceOutput = ({ formData }) => {
   };
   return (
     <>
-    <div className="">
+    <div className="flex flex-col lg:flex-row items-center justify-between w-full mx-auto max-w-[1100px]">
+      
  <div ref={componentRef} 
   className="border-[2px] border-slate-600 print-container
             w-[8.27in] mx-auto h-[10.6in]
@@ -178,7 +179,7 @@ const TaxInvoiceOutput = ({ formData }) => {
     <div className=" basis-3/5  border-b-2   flex flex-col ">
     {/* main container 1 */}
 
-   <div className=" basis-4/5 ">
+   <div className="  ">
    <table className=" h-full w-full ">
         <thead className="border-b-2 border-slate-600 ">
             <tr>
@@ -196,14 +197,14 @@ const TaxInvoiceOutput = ({ formData }) => {
             const itemTotal = item.qty * item.rate;
             const itemTax = calculateTax(itemTotal, item.tax);
             return (
-              <tr key={index} className='border-b-[1px]  border-slate-500' style={{height:"2rem"}}>
+              <tr key={index}  style={{height:"10px"}}>
                 <td >{index + 1}</td>
                 <td >{item.name}</td>
-                <td style={{ border: "1px solid #ddd", padding: "8px" }}>{item.hsn}</td>
-                <td style={{ border: "1px solid #ddd", padding: "8px" }}>{item.rate}</td>
-                <td style={{ border: "1px solid #ddd", padding: "8px" }}>{item.qty}</td>
-                <td style={{ border: "1px solid #ddd", padding: "8px" }}>{item.tax}</td>
-                <td style={{ border: "1px solid #ddd", padding: "8px" }}>
+                <td  style={{ border: "1px solid #ddd", padding: "8px" }}>{item.hsn}</td>
+                <td  style={{ border: "1px solid #ddd", padding: "8px" }}>{item.rate}</td>
+                <td  style={{ border: "1px solid #ddd", padding: "8px" }}>{item.qty}</td>
+                <td   style={{ border: "1px solid #ddd", padding: "8px" }}>{item.tax}%</td>
+                <td  style={{ border: "1px solid #ddd", padding: "8px" }}>
                   {/* ₹{(itemTotal + itemTax).toFixed(2)} */}
                   ₹{(itemTotal).toFixed(2)}
                 </td>
@@ -218,7 +219,8 @@ const TaxInvoiceOutput = ({ formData }) => {
                 <td className='border-none'></td>
                 <td className='border-none'></td>
                 <td className=''>{totals.totalQuantity}</td>
-                <td className=''>{totals.subtotal}</td>
+                <td className=''>{}</td>
+                <td className=''>₹{totals.subtotal.toFixed(2)}</td>
             </tr>
         </tfoot>
     </table>
@@ -250,32 +252,26 @@ const TaxInvoiceOutput = ({ formData }) => {
        
     </div>
     </div>
-    <div className="total basis-2/6 grid grid-rows-5">
-    {/* right column */}
+    <div className="total basis-2/6 grid grid-rows-3">
+  {/* Taxable Amount */}
+  <div className="flex justify-between px-4 py-2 border-b border-gray-300">
+    <h3 className="font-semibold">Taxable Amount</h3>
+    <span>₹{totals.subtotal.toFixed(2)}</span>
+  </div>
 
-        <div className="flex justify-around">
-          <h3>Taxable Amount</h3>
-          <span>{formData.taxAmount}</span>
-        </div>
-        <div className="flex justify-around">
-          <h3>Igst</h3>
-          <span>24324.43545</span>
-        </div>
-        <div className="flex justify-around">
-          <h3>CGST</h3>
-          <span>24324.43545</span>
-        </div>
-        <div className="flex justify-around">
-          <h3>SGST </h3>
-          <span>24324.43545</span>
-        </div>
-        <div className="flex justify-around">
-          <h2>Graond Total</h2>
-          <span>{totals.grandTotal}</span>
-        </div>
-       
-    
-    </div>
+  {/* Tax Amount */}
+  <div className="flex justify-between px-4 py-2 border-b border-gray-300">
+    <h3 className="font-semibold">Tax</h3>
+    <span>₹{totals.taxAmount.toFixed(2)}</span>
+  </div>
+
+  {/* Grand Total */}
+  <div className="flex justify-between px-4 py-3 text-lg font-bold">
+    <h2>Grand Total</h2>
+    <span>₹{totals.grandTotal.toFixed(2)}</span>
+  </div>
+</div>
+
           
    </div>
     </div>
@@ -303,12 +299,24 @@ const TaxInvoiceOutput = ({ formData }) => {
 </div>
 
 
-<button onClick={handleDownload} className=" bg-blue-400 p-3 lg:text-xl h-14 rounded-md text-sm">
-        Download Invoice
-      </button>
-<button onClick={handlePrint} className=" bg-blue-400 p-3 text-xl mx-4">
-        Print Invoice
-      </button>
+<div className="bg-white shadow-lg rounded-xl p-6 flex flex-col items-center gap-4 w-full lg:w-auto border border-gray-200">
+    <h3 className="text-lg font-semibold text-gray-700 mb-2">Actions</h3>
+    
+    <button 
+      onClick={handleDownload} 
+      className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold px-6 py-3 rounded-lg shadow-md hover:from-indigo-500 hover:to-blue-600 transition-all duration-300 ease-in-out w-full"
+    >
+  📥 Download Invoice
+    </button>
+
+    <button 
+      onClick={handlePrint} 
+      className="bg-gradient-to-r from-green-500 to-teal-600 text-white font-semibold px-6 py-3 rounded-lg shadow-md hover:from-teal-500 hover:to-green-600 transition-all duration-300 ease-in-out w-full"
+    >
+    🖨️ Print Invoice
+    </button>
+  </div>
+
       </div>
 
     </>

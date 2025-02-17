@@ -1,7 +1,5 @@
 import React from "react";
 import { useEffect, useState, useContext } from "react";
-import LightModeIcon from "@mui/icons-material/LightMode";
-import DarkModeIcon from "@mui/icons-material/DarkMode";
 import { Tooltip } from "@mui/material";
 import Drawer from "@mui/material/Drawer";
 import { AuthContext } from "../Authentication/AuthContext";
@@ -16,7 +14,7 @@ import MenuItem from '@mui/material/MenuItem';
 
 
 
-function Header({ toggleDarkMode }) {
+function Header() {
   const [lighticon, setlighticon] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const newopen = Boolean(anchorEl);
@@ -44,7 +42,7 @@ function Header({ toggleDarkMode }) {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    fetch("http://localhost:5000/api/logout", {
+    fetch("https://tax-invoice-backend.onrender.com/api/logout", {
       method: "POST",
       credentials: "include",
     }).then(() => {
@@ -74,22 +72,6 @@ function Header({ toggleDarkMode }) {
 
           {/* Mobile Menu Button */}
           <div className="md:hidden flex gap-3 mr-3">
-            <div
-              onClick={toggleDarkMode}
-              className="cursor-pointer transition-all "
-            >
-              <span onClick={handleIconMode} className="transition-all">
-                {lighticon ? (
-                  <Tooltip title="Enable Light Mode">
-                    <LightModeIcon />
-                  </Tooltip>
-                ) : (
-                  <Tooltip title="Enable Dark Mode">
-                    <DarkModeIcon />
-                  </Tooltip>
-                )}
-              </span>
-            </div>
 
             <button
               className="block md:hidden text-black dark:text-white focus:outline-none "
@@ -162,22 +144,7 @@ function Header({ toggleDarkMode }) {
                 Contact
               </Link>
             </li>
-            <li
-              onClick={toggleDarkMode}
-              className="cursor-pointer transition-all"
-            >
-              <span onClick={handleIconMode} className="transition-all">
-                {lighticon ? (
-                  <Tooltip title="Enable Light Mode">
-                    <LightModeIcon />
-                  </Tooltip>
-                ) : (
-                  <Tooltip title="Enable Dark Mode">
-                    <DarkModeIcon />
-                  </Tooltip>
-                )}
-              </span>
-            </li>
+           
             <li>
                     {user ? (<>
                       <Avatar       id="basic-button"

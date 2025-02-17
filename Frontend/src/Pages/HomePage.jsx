@@ -19,24 +19,25 @@ export default function HomePage() {
   }// Pass data from form submission
 
 
-  const [darkMode, setDarkMode] = useState( () => localStorage.getItem("darkMode") === "true");
+  // const [darkMode, setDarkMode] = useState( () => localStorage.getItem("darkMode") === "true");
 
-  useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-    localStorage.setItem("darkMode", darkMode);
-  }, [darkMode]);
+  // useEffect(() => {
+  //   if (darkMode) {
+  //     document.documentElement.classList.add("dark");
+  //   } else {
+  //     document.documentElement.classList.remove("dark");
+  //   }
+  //   localStorage.setItem("darkMode", darkMode);
+  // }, [darkMode]);
 
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
-  };
+  // const toggleDarkMode = () => {
+  //   setDarkMode(!darkMode);
+  // };
   return (
     <>
     
-    <Header toggleDarkMode={toggleDarkMode} />
+    {/* <Header toggleDarkMode={toggleDarkMode} /> */}
+    <Header />
     <Element name='home' id='home'>
     <Hero/>
      </Element>

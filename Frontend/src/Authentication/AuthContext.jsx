@@ -21,7 +21,7 @@ export const AuthProvider = ({ children }) => {
     }
 
     // Token exists, verify it
-    fetch("http://localhost:5000/api/verify-token", {
+    fetch("https://tax-invoice-backend.onrender.com/api/verify-token", {
       method: "GET",
       headers: { Authorization: `Bearer ${token}` },
     })

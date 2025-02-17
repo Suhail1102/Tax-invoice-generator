@@ -62,7 +62,7 @@ export default function Contact() {
             <div className="h-96 rounded-2xl overflow-hidden shadow-lg">
               <iframe
                 className="w-full h-full"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.8354345099214!2d144.95373631531676!3d-37.81627974202113!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad642af0f11fd81%3A0x5045675218ce7e33!2sMelbourne%20VIC%2C%20Australia!5e0!3m2!1sen!2sin!4v1640854685643!5m2!1sen!2sin"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d113911.13757485808!2d80.78662213675692!3d26.848759722875084!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x399bfd991f32b16b%3A0x93ccba8909978be7!2sLucknow%2C%20Uttar%20Pradesh!5e0!3m2!1sen!2sin!4v1739772883391!5m2!1sen!2sin"
                 allowFullScreen=""
                 loading="lazy"
                 title="Google Map"
@@ -71,6 +71,7 @@ export default function Contact() {
           </div>
         </div>
       </section>
+      
      
       </>
     );
