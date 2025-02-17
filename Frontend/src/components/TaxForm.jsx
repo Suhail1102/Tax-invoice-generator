@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import TaxInvoiceOutput from "./TaxInvoiceOutput";
 
 const TaxInvoiceForm = ({onSubmit}) => {
   const [formData, setFormData] = useState({
@@ -8,7 +7,7 @@ const TaxInvoiceForm = ({onSubmit}) => {
       name: "",
       gstin: "",
       address: "",
-      contact: "",
+      contact: "", 
     },
     customerDetails: {
       name: "",

@@ -48,7 +48,7 @@ const TaxInvoiceOutput = ({ formData }) => {
     const pdf = new jsPDF({
       orientation: "portrait",
       unit: "px",
-      format: 'a4',
+      format: 'a3',
     });
   
     const pdfWidth = pdf.internal.pageSize.getWidth();
@@ -87,7 +87,7 @@ const TaxInvoiceOutput = ({ formData }) => {
     <div className="">
  <div ref={componentRef} 
   className="border-[2px] border-slate-600 print-container
-            w-[8.27in] mx-auto h-[11.69in]
+            w-[8.27in] mx-auto h-[10.6in]
             mt-5 flex flex-col box-border 
              overflow-hidden mb-5 bg-white " style={{lineHeight:"0.5 !important"}}>
  {/* Tax Invoice heading */}
