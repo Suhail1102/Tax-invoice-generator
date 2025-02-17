@@ -5,6 +5,14 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import cookieParser from 'cookie-parser';
 import UserModel from './models/UserModel.js';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+const mongoURI = process.env.Mongo_URI;
+const SecretKey= process.env.Secret_KEY;
+console.log({mongoURI})
+
 
 const app = express();
 
@@ -14,12 +22,16 @@ app.use(cookieParser());
 app.use(cors({ origin: 'http://localhost:5173', credentials: true }));
 
 // Connect to MongoDB
-mongoose.connect('mongodb://localhost:27017/authDB', {
+mongoose.connect(mongoURI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
 .then(() => console.log('MongoDB Connected'))
 .catch(err => console.log('MongoDB Error:', err));
+
+app.get("/", (req, res) => {
+  res.send('<h1>API up and running</h1>')
+})
 
 // Signup Route
 app.post('/api/signup', async (req, res) => {
@@ -69,7 +81,7 @@ app.post('/api/login', async (req, res) => {
     }
 
     // Generate JWT
-    const token = jwt.sign({ id: user._id }, 'your_jwt_secret', { expiresIn: '1h' });
+    const token = jwt.sign({ id: user._id }, 'Secret_KEY', { expiresIn: '1h' });
     res.cookie('token', token, { httpOnly: true, secure: false });
     res.json({ message: 'Login successful', token });
   } catch (error) {
@@ -88,7 +100,7 @@ const authMiddleware = (req, res, next) => {
     return res.status(401).json({ message: "Unauthorized" });
   }
 
-  jwt.verify(token, "your_jwt_secret", (err, decoded) => {
+  jwt.verify(token, "Secret_KEY", (err, decoded) => {
     if (err) {
       return res.status(401).json({ message: "Invalid token" });
     }
