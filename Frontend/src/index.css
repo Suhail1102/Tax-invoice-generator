@@ -63,7 +63,7 @@ th {
 
   .home-list .list:nth-child(even){
  background-color: #f3dbff;
- margin: 1.5rem 0;
+
   }
   .home-list .list{ 
     padding: 5px;

@@ -17,15 +17,15 @@ function About() {
   return (
     <>
     <section className="text-gray-600 body-font dark:text-white dark:bg-black">
-  <div className="container mx-auto flex px-5 py-24 justify-center items-center">
-  
+  <div className="container mx-auto md:flex px-5 md:py-24 justify-center items-center">
+  <img className="lg:w-2/6 md:w-3/6 w-5/6 md:mb-10 mb-4 object-cover object-center rounded mx-auto" alt="hero" src={img3}/>
     <div className="w-full md:w-2/4 flex flex-col items-center text-left">
-      <h1 className="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">Simplifying Tax Invoicing for Your Business</h1>
+      <h1 className="title-font md:text-4xl text-xl md:mb-4 mb-2 font-medium text-gray-900 ">Simplifying Tax Invoicing for Your Business</h1>
       <p className=" leading-loose">At tax invoice, we provide a user-friendly tax invoice generator designed to help businesses create professional, GST-compliant invoices in seconds. Our goal is to streamline your billing process, ensuring accuracy, compliance, and efficiency. Whether you're a freelancer, small business owner, or enterprise, our tool makes invoicing effortless and hassle-free. 🚀
 
 Let me know if you want any modifications! 😊</p>
     </div>
-    <img className="lg:w-2/6 md:w-3/6 w-5/6 mb-10 object-cover object-center rounded" alt="hero" src={img3}/>
+    
   </div>
 </section>
 <section className='md:h-24 h-full bg-purple-100 box-border flex justify-center items-center my-5' > 

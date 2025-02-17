@@ -184,20 +184,21 @@ function Header() {
               anchor="right"
             >
               <div
-                style={{ width: 235, padding: "16px", height: "100%" }}
+                style={{ width: 235, padding: "16px", height: "100vh" ,  }}
                 className="dark:bg-zinc-950"
               >
                 <ul className="space-y-4 ">
-                  <li className="text-black dark:text-white text-lg ">Home</li>
-                  <li className="text-black dark:text-white text-lg ">
-                    Features
-                  </li>
-                  <li className="text-black dark:text-white text-lg ">
-                    Pricing
-                  </li>
-                  <li className="text-black dark:text-white text-lg">
-                    Contact
-                  </li>
+                  <li className="text-black dark:text-white text-lg "><Link to="home" smooth={true} duration={500}  spy={true}   hashSpy={true} activeClass="text-purple-500 underline underline-offset-2"
+                className="hover:text-gray-300 transition duration-200 cursor-pointer">Home</Link></li>
+                  <li className="text-black dark:text-white text-lg "><Link to="about" smooth={true} duration={500}  spy={true}   hashSpy={true} activeClass="text-purple-500 underline underline-offset-2"
+                className="hover:text-gray-300 transition duration-200 cursor-pointer">About</Link></li>
+                  <li className="text-black dark:text-white text-lg "><Link to="features" smooth={true} duration={500}  spy={true}   hashSpy={true} activeClass="text-purple-500 underline underline-offset-2"
+                className="hover:text-gray-300 transition duration-200 cursor-pointer">Features</Link></li>
+                  <li className="text-black dark:text-white text-lg "><Link to="pricing" smooth={true} duration={500}  spy={true}   hashSpy={true} activeClass="text-purple-500 underline underline-offset-2"
+                className="hover:text-gray-300 transition duration-200 cursor-pointer">Pricing</Link></li>
+                  <li className="text-black dark:text-white text-lg "><Link to="contact" smooth={true} duration={500}  spy={true}   hashSpy={true} activeClass="text-purple-500 underline underline-offset-2"
+                className="hover:text-gray-300 transition duration-200 cursor-pointer">Contact</Link></li>
+                  
                   <li>
                     {user ? (
                       

@@ -4,18 +4,12 @@ import { useQRCode } from '@reactuses/core/useQRCode';
 
 function Qrcode() {
 
-    // const [text, setText] = useState("https://reactuse.com/");
     const url = window.location.href;
     const { qrCode, error } = useQRCode(url);
   return (
  <>
  
     <div className='h-24 w-24 relative top-[-2rem] '>
-      {/* <input
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-        placeholder="Enter text to generate QR code"
-      /> */}
       <br />
       <br />
       {error && <div style={{ color: "red" }}>{error}</div>}
