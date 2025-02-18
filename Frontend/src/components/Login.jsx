@@ -7,10 +7,13 @@ import CheckIcon from '@mui/icons-material/Check';
 import PriorityHighIcon from '@mui/icons-material/PriorityHigh';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
+import { Button } from "@mui/material";
 import { Eye , EyeOff} from 'lucide-react';
 
 
 function Login() {
+
+  const apiUrl = import.meta.env.VITE_API_URL;
   const[formData , setFormData] = useState(
     {
       email:"",
@@ -21,6 +24,7 @@ function Login() {
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
   const location = useLocation();
+  const [loading, setLoading]= useState(false);
 
 const handleChange =(e)=>{
   const { name, value } = e.target;
@@ -37,9 +41,9 @@ const [open, setOpen] = React.useState(false);
 const handleSubmit = async (e) => {
   e.preventDefault();
   setError('');
-
+ setLoading(true)
   try {
-    const response = await fetch('https://tax-invoice-backend.onrender.com/api/login', {
+    const response = await fetch(`${apiUrl}/api/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formData),
@@ -65,13 +69,14 @@ const handleSubmit = async (e) => {
       setOpen(false)
     }, 1500);
    
-    
+    setLoading(false)
 
   } catch (error) {
     setError(error.message);
     setTimeout(() => {
       setError('');
     }, 2000);
+    setLoading(false)
   }
 };
 
@@ -152,12 +157,14 @@ const handleSubmit = async (e) => {
               Remember me
             </label>
           </div>
-          <button
+          <Button
             type="submit"
             className="w-full py-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 transition duration-300"
+            loading={loading}
+            variant='contained'
           >
           Login
-          </button>
+          </Button>
         </form>
         <p className="mt-6 text-center text-gray-600 text-sm">or login with</p>
         <div className="mt-4 flex justify-center gap-4">

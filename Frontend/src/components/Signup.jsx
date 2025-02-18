@@ -4,6 +4,7 @@ import { NavLink , useNavigate} from 'react-router';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 import { Button } from "@mui/material";
+import { Eye , EyeOff} from 'lucide-react';
 
 function Signup() {
   const [formData, setFormData] = useState({
@@ -19,11 +20,10 @@ function Signup() {
   });
   const [focused, setFocused] = useState(false);
  
-const navigate = useNavigate();
 const[open , setOpen]= useState(false)
-const[submitting , setIssubmitting]= useState(false)
 const [loading, setLoading] = useState(false)
 const [message, setmessage] = useState("")
+const apiUrl = import.meta.env.VITE_API_URL;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -83,13 +83,11 @@ const [message, setmessage] = useState("")
       password: formData.password,
     };
 
-    // console.log("Submitting:", dataToSend);
-
     // Calling Api here
 
     try {
-      
-      const response = await fetch('https://tax-invoice-backend.onrender.com/api/signup', {
+      setLoading(true)
+      const response = await fetch(`${apiUrl}/api/signup`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(dataToSend),
@@ -97,31 +95,20 @@ const [message, setmessage] = useState("")
       const result = await response.json();
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
+        setLoading(false)
       }
       else {
-        setTimeout(() => {
-          setmessage(result.message)
-          setLoading(false)
-          setFormData({
-            fullName: '',
-            email: '',
-            password: '',
-            confirmPassword: '',
-          });
-         setTimeout(() => {
-           setmessage("")
-         }, 2000,);
-           
-        }, 2000);
-        
-        // setOpen(true)
-        // setIssubmitting(true)
-        setLoading(true)
+      setmessage(result.message)
+      setLoading(false)
+      setTimeout(() => {
+        setmessage('')
+      }, 2000);
       }
       
     } catch (error) {
       console.log(error)
       alert(error)
+      setLoading(false)
     }
    
   };

@@ -3,6 +3,7 @@ import React, { createContext, useState, useEffect } from "react";
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
+  const apiUrl = import.meta.env.VITE_API_URL;
   const [user, setUser] = useState(() => {
     const token = localStorage.getItem("token");
     const storedUser = localStorage.getItem("user");
@@ -19,9 +20,10 @@ export const AuthProvider = ({ children }) => {
       setLoading(false);
       return;
     }
+   
 
     // Token exists, verify it
-    fetch("https://tax-invoice-backend.onrender.com/api/verify-token", {
+    fetch(`${apiUrl}/api/verify-token`, {
       method: "GET",
       headers: { Authorization: `Bearer ${token}` },
     })

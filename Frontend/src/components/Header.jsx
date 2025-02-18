@@ -11,6 +11,7 @@ import Avatar from '@mui/material/Avatar';
 import { deepPurple } from '@mui/material/colors';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import invoiceLogo from '../assets/invoice logo.png'
 
 
 
@@ -40,9 +41,10 @@ function Header() {
 
   const { logout, user } = useContext(AuthContext);
   const navigate = useNavigate();
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   const handleLogout = () => {
-    fetch("https://tax-invoice-backend.onrender.com/api/logout", {
+    fetch(`${apiUrl}/api/logout`, {
       method: "POST",
       credentials: "include",
     }).then(() => {
@@ -67,7 +69,7 @@ function Header() {
             to="/"
             className="md:text-2xl font-bold hover:text-gray-200 text-lg cursor-pointer"
           >
-            Tax Invoice Generator
+           <img src={invoiceLogo} alt="logo" className="w-5 h-5" />
           </Link>
 
           {/* Mobile Menu Button */}
